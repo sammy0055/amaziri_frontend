@@ -1,0 +1,17 @@
+@import "../../../../globalStyles/index.module.scss";
+
+.ProjectName {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: montserrat;
+}
+
+.Heading3 {
+  font-size: $font-size-sm;
+  font-family: poppins;
+}
+
+.LabelParagraph {
+  color: #767e92;
+  font-size: 0.75rem;
+}

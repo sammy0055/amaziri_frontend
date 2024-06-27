@@ -1,0 +1,12 @@
+@import "../../../../globalStyles/index.module.scss";
+
+.SMlabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-left: 6px;
+  color: #424242;
+}
+
+[data-theme="dark"] .SMlabel {
+  color: #fff;
+}

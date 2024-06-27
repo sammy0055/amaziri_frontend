@@ -1,0 +1,36 @@
+.Container {
+  position: absolute;
+  top: 1;
+  right: 0;
+  padding: 1rem;
+  margin: 2rem;
+  width: 20rem;
+  background-color: #fff;
+  color: #000;
+  border-radius: 1ch;
+  transform: right ease-in-out;
+}
+
+.ErrorCardActive {
+  display: none;
+}
+
+.Text {
+  width: 60%;
+}
+.Text-Wrappper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.MdError {
+  font-size: 2rem;
+  color: red;
+}
+
+.MdClose {
+  font-size: 2rem;
+  cursor: pointer;
+}

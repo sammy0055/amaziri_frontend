@@ -1,0 +1,69 @@
+@import "../../../../globalStyles/index.module";
+
+.BtnWrapper {
+  width: 100%;
+  height: 2.3rem;
+  border-radius: 10ch;
+  font-size: 1rem;
+  font-family: poppins;
+  font-weight: bold;
+  background-color: #325ed1;
+  border: 1px solid #325ed1;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.Btn-disabled {
+  cursor: not-allowed;
+  background-color: gray;
+  color: darkgray;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .BtnWrapper {
+  width: 100%;
+  height: 2.3rem;
+  border-radius: 10ch;
+  font-size: 1rem;
+  font-family: poppins;
+  font-weight: bold;
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #fff;
+  outline: none;
+  transition: ease-in-out;
+  &:hover {
+    background-color: #cfd6e6;
+  }
+}
+
+.GoogleBtnImg {
+  margin-right: 1.2rem;
+}
+
+.GoogleBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+  border-radius: 10ch;
+  font-size: 1rem;
+  font-family: poppins;
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #fff;
+  outline: none;
+  transition: ease-in-out;
+  margin-bottom: 2rem;
+  &:hover {
+    background-color: #cfd6e6;
+  }
+}
+
+[data-theme="light"] .GoogleBtn {
+  background-color: inherit;
+  border: 1px solid $border-color-dark;
+}

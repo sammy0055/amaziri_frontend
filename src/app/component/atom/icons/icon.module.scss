@@ -1,0 +1,9 @@
+.Icon {
+  font-size: 1.25rem;
+  color: #424242;
+  text-align: center;
+}
+
+[data-theme="dark"] .Icon {
+  color: #fff;
+}

@@ -1,0 +1,11 @@
+.SignupForm {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.SignupForm > .Heading3 {
+    margin-top: 1rem;
+}

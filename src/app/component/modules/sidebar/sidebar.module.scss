@@ -1,0 +1,34 @@
+@import "../../../../globalStyles/variables.module";
+
+.Sidebar-Wrapper {
+  background-color: #f6fafb;
+  width: 15%;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  border-right: 1px solid $border-color-light;
+}
+
+[data-theme="dark"] .Sidebar-Wrapper {
+  background-color: #000;
+  border-right: 1px solid $border-color-dark;
+}
+
+.SidebarItem {
+  width: 100%;
+  margin-left: 0.75rem;
+  margin-top: 2rem;
+}
+.SidebarItem-label {
+  font-size: 0.75rem;
+  font-variant: small-caps;
+}
+
+.SidebarItem > div {
+  margin-left: 0.75rem;
+}
+
+.Others {
+  margin-top: 3rem;
+  margin-left: 12px;
+}

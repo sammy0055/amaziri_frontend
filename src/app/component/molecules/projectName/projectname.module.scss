@@ -1,0 +1,11 @@
+.Container {
+  display: flex;
+  justify-content: center;
+  object-fit: contain;
+}
+
+.img-container {
+  width: 2rem;
+  height: 2rem;
+  background-color: #fff;
+}

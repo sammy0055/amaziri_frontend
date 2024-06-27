@@ -1,0 +1,10 @@
+@import "../../../../globalStyles/index.module.scss";
+
+.Input {
+  margin-top: .5rem;
+  padding: 12px;
+  width: 100%;
+  height: 5vh;
+  border-radius: 1ch;
+  border: 1px solid $border-color-dark;
+}

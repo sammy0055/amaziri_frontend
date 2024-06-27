@@ -1,0 +1,14 @@
+.Auth-container {
+  padding: 2rem;
+  margin-top: 1rem;
+  width: 30%;
+  min-height: 40vh;
+  border-radius: 1ch;
+  border: 1px solid $border-color-dark;
+}
+
+@media screen and (max-width: 720px) {
+  .Auth-container {
+    width: 97%;
+  }
+}
