@@ -1,5 +1,5 @@
 import { useKnowledgeBaseState } from "@/app/state-management/knowledge-base";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export const useKnowledgeBase = () => {
   const [isOpen, setIsopen] = useState(false);
@@ -13,10 +13,23 @@ export const useKnowledgeBase = () => {
   };
 
   const selecteKnowledgeBase = (id: string) => {
+    const file = knowledgeBase.find(({ _id }) => _id === id)!;
     setKnowledgeBase((prevState) => {
       return {
         ...prevState,
-        selectedKnowledgeBase: knowledgeBase.find(({ _id }) => _id === id)!,
+        selectedKnowledgeBase: file,
+      };
+    });
+  };
+
+  const handleKnowledgeBaseChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setKnowledgeBase((prevState) => {
+      return {
+        ...prevState,
+        selectedKnowledgeBase: {
+          ...prevState.selectedKnowledgeBase,
+          name: e.target.value,
+        },
       };
     });
   };
@@ -28,5 +41,6 @@ export const useKnowledgeBase = () => {
     openAndClose,
     addKnowledgeBase,
     selecteKnowledgeBase,
+    handleKnowledgeBaseChange,
   };
 };

@@ -17,26 +17,26 @@ export const Sidebar = () => {
     <section className={styles["Sidebar-Wrapper"]}>
       <ProjectNameAndLogo />
       <SidebarItem label="ai assistants">
-        <IconAndLabel text="All Chats" icon={<IoChatbubbles />} />
-        <IconAndLabel text="Assistants" icon={<FcAssistant />} />
+        <IconAndLabel text="All Chats" Icon={IoChatbubbles} />
+        <IconAndLabel text="Assistants" Icon={FcAssistant} />
       </SidebarItem>
 
       <SidebarItem label="Automation">
-        <IconAndLabel text="Workfows" icon={<LuWorkflow />} />
-        <IconAndLabel text="Templates" icon={<LuLayoutTemplate />} />
+        <IconAndLabel text="Workfows" Icon={LuWorkflow} />
+        <IconAndLabel text="Templates" Icon={LuLayoutTemplate} />
       </SidebarItem>
 
       <SidebarItem label="Business Context">
         <Link href={"/home/knowledge_base"}>
-          <IconAndLabel text="Knowledge Base" icon={<IoFolderOpen />} />
+          <IconAndLabel text="Knowledge Base" Icon={IoFolderOpen} />
         </Link>
       </SidebarItem>
 
       <div className={styles["Others"]}>
-        <IconAndLabel text="Upgrade" icon={<GrUpgrade />} />
-        <IconAndLabel text="Whats New" icon={<MdNotificationsActive />} />
-        <IconAndLabel text="Help" icon={<MdHelp />} />
-        <IconAndLabel text="Profile" icon={<BsPersonFillCheck />} />
+        <IconAndLabel text="Upgrade" Icon={GrUpgrade} />
+        <IconAndLabel text="Whats New" Icon={MdNotificationsActive} />
+        <IconAndLabel text="Help" Icon={MdHelp} />
+        <IconAndLabel text="Profile" Icon={BsPersonFillCheck} />
         <ToggleTheme />
       </div>
     </section>

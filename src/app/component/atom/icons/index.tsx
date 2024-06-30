@@ -1,7 +1,8 @@
+import { IconType } from "react-icons";
 import styles from "./icon.module.scss";
 interface IconProps {
-  icon: React.ReactNode;
+  Icon: IconType;
 }
-export const IconWrapper: React.FC<IconProps> = ({ icon }) => {
-  return <span className={styles["Icon"]}>{icon}</span>;
+export const IconWrapper: React.FC<IconProps> = ({ Icon }) => {
+  return <Icon className={styles["Icon"]} />;
 };

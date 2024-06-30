@@ -17,3 +17,20 @@
   width: 100%;
   padding: 0.75rem;
 }
+
+.SettingsArea {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.All-Files-wrapper {
+  width: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.Btn-container {
+  width: 30%;
+}

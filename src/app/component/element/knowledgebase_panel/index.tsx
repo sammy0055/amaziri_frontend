@@ -1,9 +1,10 @@
 "use client";
-import { IoFolderOpen } from "react-icons/io5";
+import { IoFolderOpen, IoSettingsOutline } from "react-icons/io5";
 import { IoIosArrowForward, IoIosArrowDown, IoMdAdd } from "react-icons/io";
 import { IconAndLabel } from "../../molecules/IconAndText";
 import styles from "./index.module.scss";
 import { useKnowledgeBase } from "@/app/hooks/knowledgebase";
+import { IconType } from "react-icons";
 export const KnowledgeBasePanel = () => {
   const {
     isOpen,
@@ -18,7 +19,7 @@ export const KnowledgeBasePanel = () => {
         <div className={styles["FileContainer"]}>
           <div className={styles["Folder"]} onClick={openAndClose}>
             {isOpen ? <IoIosArrowDown /> : <IoIosArrowForward />}
-            <IconAndLabel text="All Files" icon={<IoFolderOpen />} />
+            <IconAndLabel text="All Files" Icon={IoFolderOpen} />
           </div>
           <IoMdAdd onClick={() => addKnowledgeBase} />
         </div>
@@ -27,7 +28,7 @@ export const KnowledgeBasePanel = () => {
           <div className={styles["DropdownContainer"]}>
             {knowledgeBase.map(({ name, _id }) => (
               <div key={_id} onClick={() => selecteKnowledgeBase(_id)}>
-                <IconAndLabel text={name} icon={<IoFolderOpen />} />
+                <IconAndLabel text={name} Icon={IoFolderOpen} />
               </div>
             ))}
           </div>
@@ -42,11 +43,29 @@ export const SelecteKnowledgeBaseDisplay = () => {
   return (
     <div>
       {selectedKnowledgeBase?.name && (
-        <IconAndLabel
-          text={selectedKnowledgeBase.name}
-          icon={<IoFolderOpen />}
-        />
+        <IconAndText text={selectedKnowledgeBase?.name} Icon={IoFolderOpen} />
       )}
+    </div>
+  );
+};
+
+interface IconAndTextProps {
+  Icon: IconType;
+  text?: string;
+}
+const IconAndText: React.FC<IconAndTextProps> = ({ Icon, text }) => {
+  const { handleKnowledgeBaseChange } = useKnowledgeBase();
+  return (
+    <div className={styles["Selected"]}>
+      <Icon className={styles["Icon"]} />
+      <input
+        className={styles["Text"]}
+        value={text}
+        onChange={handleKnowledgeBaseChange}
+      />
+      <button className={styles["BtnWrapper"]}>
+        <IoSettingsOutline className={styles["Icon"]} />
+      </button>
     </div>
   );
 };
