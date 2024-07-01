@@ -6,13 +6,35 @@ import {
 } from "../../element/knowledgebase_panel";
 import styles from "./index.module.scss";
 import { BackBtn } from "../../atom/buttons/backBtn";
-export const KnowledgeBaseSettings = () => {
-  return (
-    <div className={styles["BaseContainer"]}>
-      <Button>new</Button>
-      <KnowledgeBasePanel />
-    </div>
+import { KnowledgeVaultsPayload } from "@/types/knowledgebase";
+import { gqlServerQuery } from "@/app/server_actions/gql";
+import { getKnowledgeVaultsSchema } from "@/app/graphql/query/knowledge-base";
+
+const getKnowledgeBase = async () => {
+  const res = await gqlServerQuery<{getKnowledgeVaults:KnowledgeVaultsPayload}>(
+    getKnowledgeVaultsSchema
   );
+  return res.data.getKnowledgeVaults;
+};
+
+export const KnowledgeBaseSettings = async () => {
+  try {
+    const knowledgeBase = await getKnowledgeBase();
+    return (
+      <div className={styles["BaseContainer"]}>
+        <Button>new</Button>
+        <KnowledgeBasePanel data={knowledgeBase!} />
+      </div>
+    );
+  } catch (error: any) {
+    console.error(error);
+    return (
+      <div className={styles["BaseContainer"]}>
+        <Button>new</Button>
+        <span>Error occured while loading component</span>
+      </div>
+    );
+  }
 };
 
 export const KnowledgeBaseArea = () => {

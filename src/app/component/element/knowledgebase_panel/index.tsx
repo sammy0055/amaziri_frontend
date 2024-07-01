@@ -5,14 +5,33 @@ import { IconAndLabel } from "../../molecules/IconAndText";
 import styles from "./index.module.scss";
 import { useKnowledgeBase } from "@/app/hooks/knowledgebase";
 import { IconType } from "react-icons";
-export const KnowledgeBasePanel = () => {
+import { KnowledgeVaultsPayload } from "@/types/knowledgebase";
+import { useEffect } from "react";
+
+interface KnowledgeBasePanelProps {
+  data: KnowledgeVaultsPayload;
+}
+export const KnowledgeBasePanel: React.FC<KnowledgeBasePanelProps> = ({
+  data,
+}) => {
   const {
     isOpen,
     knowledgeBase,
     openAndClose,
     addKnowledgeBase,
     selecteKnowledgeBase,
+    setKnowledgeBase,
   } = useKnowledgeBase();
+
+  useEffect(() => {
+    setKnowledgeBase((prevState) => {
+      return {
+        ...prevState,
+        knowledgeBase: data.data,
+        selectedKnowledgeBase: data.data[0],
+      };
+    });
+  }, []);
   return (
     <>
       <div className={styles["Files-Section"]}>

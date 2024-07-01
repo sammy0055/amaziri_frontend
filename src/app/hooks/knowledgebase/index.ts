@@ -38,6 +38,7 @@ export const useKnowledgeBase = () => {
     isOpen,
     knowledgeBase,
     selectedKnowledgeBase,
+    setKnowledgeBase,
     openAndClose,
     addKnowledgeBase,
     selecteKnowledgeBase,

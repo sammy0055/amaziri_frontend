@@ -1,7 +1,7 @@
 "use server";
 import { TypedDocumentNode } from "@apollo/client";
 import { cookies } from "next/headers";
-import { client } from "../graphql";
+import { client } from "../../graphql";
 import { LocalStorageVariables } from "@/types/common";
 
 export const gqlServerQuery = async <T>(
