@@ -7,6 +7,8 @@ import { useKnowledgeBase } from "@/app/hooks/knowledgebase";
 import { IconType } from "react-icons";
 import { KnowledgeVaultsPayload } from "@/types/knowledgebase";
 import { useEffect } from "react";
+import { Button } from "../../atom/buttons";
+import { BasicPopover } from "../popover";
 
 interface KnowledgeBasePanelProps {
   data: KnowledgeVaultsPayload;
@@ -18,7 +20,6 @@ export const KnowledgeBasePanel: React.FC<KnowledgeBasePanelProps> = ({
     isOpen,
     knowledgeBase,
     openAndClose,
-    addKnowledgeBase,
     selecteKnowledgeBase,
     setKnowledgeBase,
   } = useKnowledgeBase();
@@ -40,7 +41,7 @@ export const KnowledgeBasePanel: React.FC<KnowledgeBasePanelProps> = ({
             {isOpen ? <IoIosArrowDown /> : <IoIosArrowForward />}
             <IconAndLabel text="All Files" Icon={IoFolderOpen} />
           </div>
-          <IoMdAdd onClick={() => addKnowledgeBase} />
+          <IoMdAdd onClick={() => ""} />
         </div>
 
         {isOpen && (
@@ -61,7 +62,7 @@ export const SelecteKnowledgeBaseDisplay = () => {
   const { selectedKnowledgeBase } = useKnowledgeBase();
   return (
     <div>
-      {selectedKnowledgeBase?.name && (
+      {selectedKnowledgeBase?._id && (
         <IconAndText text={selectedKnowledgeBase?.name} Icon={IoFolderOpen} />
       )}
     </div>
@@ -82,9 +83,47 @@ const IconAndText: React.FC<IconAndTextProps> = ({ Icon, text }) => {
         value={text}
         onChange={handleKnowledgeBaseChange}
       />
-      <button className={styles["BtnWrapper"]}>
-        <IoSettingsOutline className={styles["Icon"]} />
-      </button>
+      <BasicPopover
+        ButtonComponent={Settings}
+        PopUpContent={<DeleteKnowledgbase />}
+      />
     </div>
+  );
+};
+
+interface SettingsPrps {
+  onClick: (event: any) => void;
+}
+const Settings: React.FC<SettingsPrps> = ({ onClick }) => {
+  return (
+    <button className={styles["BtnWrapper"]} onClick={onClick}>
+      <IoSettingsOutline className={styles["Icon"]} />
+    </button>
+  );
+};
+
+const DeleteKnowledgbase = () => {
+  const { deleteKnowledgeBase, isDisabled } = useKnowledgeBase();
+  return (
+    <div className={styles["DeleteBtnComponentWrapper"]}>
+      <Button
+        variant="plain"
+        isDisabled={isDisabled}
+        handler={deleteKnowledgeBase}
+      >
+        delete
+      </Button>
+    </div>
+  );
+};
+
+export const AddFolder = () => {
+  const { addKnowledgeVault, isDisabled } = useKnowledgeBase();
+  return (
+    <>
+      <Button handler={addKnowledgeVault} isDisabled={isDisabled}>
+        add folder
+      </Button>
+    </>
   );
 };

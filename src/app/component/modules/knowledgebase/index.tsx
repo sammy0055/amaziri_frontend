@@ -1,6 +1,7 @@
 import { Button } from "../../atom/buttons";
 import { IconLabel } from "../../atom/typography";
 import {
+  AddFolder,
   KnowledgeBasePanel,
   SelecteKnowledgeBaseDisplay,
 } from "../../element/knowledgebase_panel";
@@ -9,11 +10,12 @@ import { BackBtn } from "../../atom/buttons/backBtn";
 import { KnowledgeVaultsPayload } from "@/types/knowledgebase";
 import { gqlServerQuery } from "@/app/server_actions/gql";
 import { getKnowledgeVaultsSchema } from "@/app/graphql/query/knowledge-base";
+import { DocumentArea } from "../../element/knowledgebase_panel/document";
 
 const getKnowledgeBase = async () => {
-  const res = await gqlServerQuery<{getKnowledgeVaults:KnowledgeVaultsPayload}>(
-    getKnowledgeVaultsSchema
-  );
+  const res = await gqlServerQuery<{
+    getKnowledgeVaults: KnowledgeVaultsPayload;
+  }>(getKnowledgeVaultsSchema);
   return res.data.getKnowledgeVaults;
 };
 
@@ -22,7 +24,7 @@ export const KnowledgeBaseSettings = async () => {
     const knowledgeBase = await getKnowledgeBase();
     return (
       <div className={styles["BaseContainer"]}>
-        <Button>new</Button>
+        <AddFolder />
         <KnowledgeBasePanel data={knowledgeBase!} />
       </div>
     );
@@ -53,6 +55,10 @@ export const KnowledgeBaseArea = () => {
             <span>add Document</span>
           </Button>
         </div>
+      </div>
+
+      <div className={styles["DocumentArea"]}>
+        <DocumentArea />
       </div>
     </div>
   );

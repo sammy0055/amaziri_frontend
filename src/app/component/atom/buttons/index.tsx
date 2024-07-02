@@ -1,29 +1,32 @@
 import Image from "next/image";
 import styles from "./button.module.scss";
+import { Button as Btn } from "@mui/joy";
 
 interface ButtonProps {
   children: React.ReactNode;
   handler?: () => void;
   type?: "button" | "submit";
   isDisabled?: boolean;
+  variant?: "solid" | "soft" | "outlined" | "plain";
 }
 export const Button: React.FC<ButtonProps> = ({
   children,
   type,
   isDisabled = false,
+  variant,
   handler,
 }) => {
   return (
-    <button
-      className={`${styles["BtnWrapper"]} ${
-        isDisabled ? styles["Btn-disabled"] : ""
-      }`}
+    <Btn
+      className={styles["Button"]}
       onClick={handler}
       type={type}
       disabled={isDisabled}
+      loading={isDisabled}
+      variant={variant}
     >
       {children}
-    </button>
+    </Btn>
   );
 };
 

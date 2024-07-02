@@ -6,13 +6,12 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import { useAuth } from "@/app/hooks/auth";
 export const SignUpForm = () => {
-  const { email, password, setEmail, setPassword, signUpHandler } = useAuth();
+  const { email, password, setEmail, setPassword, signUpHandler, isDisabled } = useAuth();
   return (
     <form className={styles["SignupForm"]} onSubmit={signUpHandler}>
-      <SignUpWithGoogleBtn
-        buttonName="continue with google"
-        handler={() => ""}
-      />
+      <SignUpWithGoogleBtn handler={() => ""}>
+        continue with google
+      </SignUpWithGoogleBtn>
       <TextField
         label="work Email"
         name="email"
@@ -27,7 +26,7 @@ export const SignUpForm = () => {
         value={password}
         handleChange={(e) => setPassword(e.target.value)}
       />
-      <Button type="submit" buttonName="sign up" />
+      <Button type="submit" isDisabled={isDisabled}>sign up</Button>
       <span className={styles["Heading3"]}>
         <Heading3>
           Already have an account? <Link href={"/login"}>Log in</Link>{" "}

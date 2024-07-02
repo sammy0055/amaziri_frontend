@@ -1,3 +1,8 @@
+export interface PayloadStatus {
+  code: string;
+  message: string;
+}
+
 export interface PageQeuryParams {
   params: any;
   searchParams: {

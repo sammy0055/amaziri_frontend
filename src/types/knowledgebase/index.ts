@@ -1,3 +1,5 @@
+import { PayloadStatus } from "../common";
+
 export interface Document {
   _id: string;
 }
@@ -10,8 +12,10 @@ export interface KnowledgeVault {
 
 export type KnowledgeVaults = KnowledgeVault[];
 
-export interface KnowledgeVaultsPayload {
-  code: string;
-  message: string;
+export interface KnowledgeVaultPayload extends PayloadStatus {
+  data: KnowledgeVault;
+}
+
+export interface KnowledgeVaultsPayload extends PayloadStatus {
   data: KnowledgeVaults;
 }

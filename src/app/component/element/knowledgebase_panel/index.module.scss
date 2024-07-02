@@ -36,6 +36,8 @@
 
 .Selected {
   margin-top: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .Selected > .Icon {
@@ -74,4 +76,8 @@
 
 .BtnWrapper > .Icon {
   font-size: 1.5rem;
+}
+
+.DeleteBtnComponentWrapper {
+  width: 5rem;
 }

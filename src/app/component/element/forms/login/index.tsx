@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button, SignUpWithGoogleBtn } from "@/app/component/atom/buttons";
 import { Heading3 } from "@/app/component/atom/headings";
 import { TextField } from "@/app/component/molecules/textField";
@@ -9,10 +9,9 @@ export const LoginForm = () => {
   const { email, password, setEmail, setPassword, loginHandler } = useAuth();
   return (
     <form className={styles["SignupForm"]} onSubmit={loginHandler}>
-      <SignUpWithGoogleBtn
-        buttonName="continue with google"
-        handler={() => ""}
-      />
+      <SignUpWithGoogleBtn handler={() => ""}>
+        continue with google
+      </SignUpWithGoogleBtn>
       <TextField
         label="work Email"
         name="email"
@@ -27,7 +26,7 @@ export const LoginForm = () => {
         value={password}
         handleChange={(e) => setPassword(e.target.value)}
       />
-      <Button buttonName="login" type="submit" />
+      <Button type="submit">login</Button>
       <span className={styles["Heading3"]}>
         <Heading3>
           Don't have an account? <Link href={"/sign_up"}>SignUp Here</Link>{" "}
