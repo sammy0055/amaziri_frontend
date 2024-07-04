@@ -1,45 +1,23 @@
+"use client";
 import { Button } from "../../atom/buttons";
 import { IconLabel } from "../../atom/typography";
-import {
-  AddFolder,
-  KnowledgeBasePanel,
-  SelecteKnowledgeBaseDisplay,
-} from "../../element/knowledgebase_panel";
+import { SelecteKnowledgeBaseDisplay } from "../../element/knowledgebase_panel";
 import styles from "./index.module.scss";
 import { BackBtn } from "../../atom/buttons/backBtn";
-import { KnowledgeVaultsPayload } from "@/types/knowledgebase";
-import { gqlServerQuery } from "@/app/server_actions/gql";
-import { getKnowledgeVaultsSchema } from "@/app/graphql/query/knowledge-base";
 import { DocumentArea } from "../../element/knowledgebase_panel/document";
-
-const getKnowledgeBase = async () => {
-  const res = await gqlServerQuery<{
-    getKnowledgeVaults: KnowledgeVaultsPayload;
-  }>(getKnowledgeVaultsSchema);
-  return res.data.getKnowledgeVaults;
-};
-
-export const KnowledgeBaseSettings = async () => {
-  try {
-    const knowledgeBase = await getKnowledgeBase();
-    return (
-      <div className={styles["BaseContainer"]}>
-        <AddFolder />
-        <KnowledgeBasePanel data={knowledgeBase!} />
-      </div>
-    );
-  } catch (error: any) {
-    console.error(error);
-    return (
-      <div className={styles["BaseContainer"]}>
-        <Button>new</Button>
-        <span>Error occured while loading component</span>
-      </div>
-    );
-  }
-};
+import { useRef } from "react";
+import { useKnowledgeBase } from "@/app/hooks/knowledgebase";
 
 export const KnowledgeBaseArea = () => {
+  const { handleFileChange, isDisabled } = useKnowledgeBase();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
     <div className={styles["KnowledgeBaseArea"]}>
       <div className={styles["SettingsArea"]}>
@@ -51,8 +29,14 @@ export const KnowledgeBaseArea = () => {
           </div>
         </div>
         <div className={styles["Btn-container"]}>
-          <Button>
+          <Button handler={handleClick} isDisabled={isDisabled}>
             <span>add Document</span>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
           </Button>
         </div>
       </div>

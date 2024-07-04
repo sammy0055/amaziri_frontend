@@ -9,9 +9,14 @@ import { IconWrapper } from "@/app/component/atom/icons";
 import Table from "@mui/joy/Table";
 import { IconAndLabel } from "@/app/component/molecules/IconAndText";
 import { BasicPopover } from "../../popover";
+import { useKnowledgeBase } from "@/app/hooks/knowledgebase";
+
+import { formatDistanceToNow } from "date-fns";
+import { Button } from "@/app/component/atom/buttons";
 
 export const DocumentArea = () => {
-  const isDocumentEmpty = false;
+  const { selectedKnowledgeBase } = useKnowledgeBase();
+  const isDocumentEmpty = selectedKnowledgeBase?.documents.length === 0;
   return <div>{isDocumentEmpty ? <AddDocumentWrapper /> : <Document />}</div>;
 };
 
@@ -57,6 +62,7 @@ const AddDocumentComponent: React.FC<AddDocumentCardProps> = ({
 };
 
 const Document = () => {
+  const { selectedKnowledgeBase } = useKnowledgeBase();
   return (
     <div>
       <Table aria-label="basic table">
@@ -69,11 +75,17 @@ const Document = () => {
           </tr>
         </thead>
         <tbody>
-          <DocumentBody
-            originalName="computer science"
-            createdAt="3 days ago"
-            updateAt="2 minutes ago"
-          />
+          {selectedKnowledgeBase?.documents?.map((document) => {
+            return (
+              <DocumentBody
+                key={document._id}
+                _id={document._id}
+                originalName={document.originalFileName}
+                createdAt={document.createdAt}
+                updateAt={document.updatedAt}
+              />
+            );
+          })}
         </tbody>
       </Table>
     </div>
@@ -81,27 +93,41 @@ const Document = () => {
 };
 
 interface DocumentBodyProps {
+  _id: string;
   originalName: string;
-  createdAt: string;
-  updateAt: string;
+  createdAt: number;
+  updateAt: number;
 }
 
 const DocumentBody: React.FC<DocumentBodyProps> = ({
+  _id,
   originalName,
   createdAt,
   updateAt,
 }) => {
+  const { deleteDocument, isDisabled } = useKnowledgeBase();
   return (
     <tr>
       <td>
         <IconAndLabel text={originalName} Icon={FaFilePdf} />
       </td>
-      <td>{createdAt}</td>
-      <td>{updateAt}</td>
+      <td>
+        {createdAt ? formatDistanceToNow(createdAt, { addSuffix: true }) : ""}
+      </td>
+      <td>
+        {updateAt ? formatDistanceToNow(updateAt, { addSuffix: true }) : ""}
+      </td>
       <td>
         <BasicPopover
           ButtonComponent={Settings}
-          PopUpContent={<div>hello</div>}
+          PopUpContent={
+            <Button
+              isDisabled={isDisabled}
+              handler={async () => await deleteDocument(_id)}
+            >
+              delete
+            </Button>
+          }
         />
       </td>
     </tr>

@@ -8,6 +8,13 @@ export const addKnowledgeBaseSchema = gql`
         _id
         name
         organization
+        documents {
+          _id
+          newFileName
+          originalFileName
+          updatedAt
+          createdAt
+        }
       }
     }
   }
@@ -26,6 +33,8 @@ export const updateKnowledgeBaseSchema = gql`
           _id
           newFileName
           originalFileName
+          updatedAt
+          createdAt
         }
       }
     }
@@ -33,7 +42,36 @@ export const updateKnowledgeBaseSchema = gql`
 `;
 
 export const deleteKnowledgeBaseSchema = gql`
-mutation RemoveKnowledgeVault($vaultId:UNIQUEID!){
-    removeKnowledgeVault(KnowledgeVaultId:$vaultId)
-}
-`
+  mutation RemoveKnowledgeVault($vaultId: UNIQUEID!) {
+    removeKnowledgeVault(KnowledgeVaultId: $vaultId)
+  }
+`;
+
+export const addDocumentSchema = gql`
+  mutation UploadDocument($DocumentData: DocumentInput!) {
+    uploadDocument(uploadDocumentInputData: $DocumentData) {
+      code
+      message
+      data {
+        _id
+        uploadUrl
+        originalFileName
+        newFileName
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
+export const addDocumentToVectorStoreSchema = gql`
+  mutation AddDocumentToVectorStore($DocumentData: DocumentQueryInput!) {
+    addDocumentToVectorStore(Document: $DocumentData)
+  }
+`;
+
+export const removeDocumentSchema = gql`
+  mutation RemoveDocument($documentId: UNIQUEID!) {
+    removeDocument(DocumentId: $documentId)
+  }
+`;

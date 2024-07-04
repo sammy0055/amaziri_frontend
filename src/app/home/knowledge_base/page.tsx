@@ -1,7 +1,7 @@
+import { KnowledgeBaseSettings } from "@/app/component/modules/knowledgebase/settings";
 import styles from "./knowledgebase.module.scss";
 import {
   KnowledgeBaseArea,
-  KnowledgeBaseSettings,
 } from "@/app/component/modules/knowledgebase";
 
 

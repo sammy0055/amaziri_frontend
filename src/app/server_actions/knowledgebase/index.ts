@@ -1,12 +1,21 @@
 "use server";
 
 import {
+  addDocumentSchema,
+  addDocumentToVectorStoreSchema,
   addKnowledgeBaseSchema,
   deleteKnowledgeBaseSchema,
+  removeDocumentSchema,
   updateKnowledgeBaseSchema,
 } from "@/app/graphql/mutation/knowledgebase";
 import { gqlServerMutation } from "../gql";
-import { KnowledgeVault, KnowledgeVaultPayload } from "@/types/knowledgebase";
+import {
+  AddDocumentInput,
+  Document,
+  DocumentPayload,
+  KnowledgeVault,
+  KnowledgeVaultPayload,
+} from "@/types/knowledgebase";
 
 export const addKnowledgeBase = async (data: { name: string }) => {
   const mutation = await gqlServerMutation();
@@ -43,4 +52,39 @@ export const removeKnowledgeBase = async (
   });
 
   return payload.data?.removeKnowledgeVault;
+};
+
+//------------------------ document section --------------------
+
+export const addDocumentToKnowledgeBase = async (data: AddDocumentInput) => {
+  const mutation = await gqlServerMutation();
+  const payload = await mutation<{
+    uploadDocument: DocumentPayload;
+  }>(addDocumentSchema, {
+    DocumentData: data,
+  });
+  return payload.data?.uploadDocument;
+};
+
+export const addDocumentToVectorStore = async (data: {
+  _id: string;
+  fileName: string;
+}) => {
+  const mutation = await gqlServerMutation();
+  const payload = await mutation<{ uploadDocument: any }>(
+    addDocumentToVectorStoreSchema,
+    {
+      DocumentData: data,
+    }
+  );
+
+  return payload.data?.uploadDocument;
+};
+
+export const removeDocument = async (_id: string) => {
+  const mutation = await gqlServerMutation();
+  const payload = await mutation(removeDocumentSchema, {
+    documentId: _id,
+  });
+  return payload.data;
 };

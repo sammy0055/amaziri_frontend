@@ -9,6 +9,10 @@ const getKnowledgeVaultsSchema = gql`
         name
         documents {
           _id
+          newFileName
+          originalFileName
+          updatedAt
+          createdAt
         }
       }
     }
