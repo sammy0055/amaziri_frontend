@@ -6,11 +6,24 @@ export const ProjectNameHeading = () => {
 
 interface SmallHeadingProps {
   children: ReactNode;
+  customStyles?: any;
 }
-export const Heading3: React.FC<SmallHeadingProps> = ({ children }) => {
-  return <h3 className={styles["Heading3"]}>{children}</h3>;
+
+export const Heading: React.FC<SmallHeadingProps> = ({
+  children,
+  customStyles,
+}) => {
+  return <h1 className={`${customStyles}`}>{children}</h1>;
+};
+export const Heading3: React.FC<SmallHeadingProps> = ({ children, customStyles }) => {
+  return <h3 className={`${styles["Heading3"]} ${customStyles}`}>{children}</h3>;
 };
 
-export const LabelParagraph: React.FC<SmallHeadingProps> = ({ children }) => {
-  return <p className={styles["LabelParagraph"]}>{children}</p>;
+export const LabelParagraph: React.FC<SmallHeadingProps> = ({
+  children,
+  customStyles,
+}) => {
+  return (
+    <p className={`${styles["LabelParagraph"]} ${customStyles}`}>{children}</p>
+  );
 };

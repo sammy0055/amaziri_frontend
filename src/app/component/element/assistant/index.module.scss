@@ -1,0 +1,43 @@
+.SettingsArea {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.Section1 {
+  width: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.Section2 {
+  width: 30%;
+}
+
+.Haeding {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.AddBtn {
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AddBtn > span {
+  margin-left: 1rem;
+}
+
+// --------------- assistant area -------------------
+// e0e1e3
+.AssistantArea {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+}
+
+
+

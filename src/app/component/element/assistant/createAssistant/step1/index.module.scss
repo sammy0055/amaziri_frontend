@@ -1,0 +1,38 @@
+@import "../../../../../../globalStyles/variables.module";
+
+// step -1 ---------------------
+.CreateAssistantStep1 {
+  padding: 2rem;
+}
+.Haeding {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.BoxArea {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Box {
+  width: 24.6875rem;
+  border-radius: 8px;
+  border: 1px solid $border-color-light;
+  padding: 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+[data-theme="dark"] .Box {
+  border-color: $border-color-dark;
+}
+
+.CommingSoon {
+  filter: blur(5px);
+  pointer-events: none;
+  opacity: 0.6;
+}

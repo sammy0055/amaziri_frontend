@@ -10,3 +10,10 @@ const ErrorState = atom({
 });
 
 export const useErrorState = () => useRecoilState(ErrorState);
+
+const popup = atom({
+  key: v4(),
+  default: false,
+});
+
+export const useOpenAndClosePopUp = () => useRecoilState(popup);

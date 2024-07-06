@@ -6,10 +6,11 @@ import styles from "./iconandtext.module.scss"
 interface LabelProps {
     text: string;
     Icon: IconType;
+    customStyles?:any
   }
-  export const IconAndLabel: React.FC<LabelProps> = ({ text, Icon }) => {
+  export const IconAndLabel: React.FC<LabelProps> = ({ text, customStyles, Icon }) => {
     return (
-      <button className={styles["Container"]}>
+      <button className={`${styles["Container"]} ${customStyles}`}>
         <IconWrapper Icon={Icon} />
         <IconLabel text={text} />
       </button>

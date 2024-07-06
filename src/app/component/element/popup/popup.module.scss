@@ -1,0 +1,11 @@
+@import "../../../../globalStyles/variables.module" ;
+.PopUp {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+[data-theme="dark"] .PopUp {
+  background-color: #000;
+  border: 1px solid $border-color-dark;
+}

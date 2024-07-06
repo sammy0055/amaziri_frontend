@@ -17,26 +17,64 @@ export const Sidebar = () => {
     <section className={styles["Sidebar-Wrapper"]}>
       <ProjectNameAndLogo />
       <SidebarItem label="ai assistants">
-        <IconAndLabel text="All Chats" Icon={IoChatbubbles} />
-        <IconAndLabel text="Assistants" Icon={FcAssistant} />
+        <IconAndLabel
+          text="All Chats"
+          Icon={IoChatbubbles}
+          customStyles={styles["IconAndLabelCustomStyle"]}
+        />
+        <Link href={"/home/assistant"}>
+          <IconAndLabel
+            text="Assistants"
+            Icon={FcAssistant}
+            customStyles={styles["IconAndLabelCustomStyle"]}
+          />
+        </Link>
       </SidebarItem>
 
       <SidebarItem label="Automation">
-        <IconAndLabel text="Workfows" Icon={LuWorkflow} />
-        <IconAndLabel text="Templates" Icon={LuLayoutTemplate} />
+        <IconAndLabel
+          text="Workfows"
+          Icon={LuWorkflow}
+          customStyles={styles["IconAndLabelCustomStyle"]}
+        />
+        <IconAndLabel
+          text="Templates"
+          Icon={LuLayoutTemplate}
+          customStyles={styles["IconAndLabelCustomStyle"]}
+        />
       </SidebarItem>
 
       <SidebarItem label="Business Context">
         <Link href={"/home/knowledge_base"}>
-          <IconAndLabel text="Knowledge Base" Icon={IoFolderOpen} />
+          <IconAndLabel
+            text="Knowledge Base"
+            Icon={IoFolderOpen}
+            customStyles={styles["IconAndLabelCustomStyle"]}
+          />
         </Link>
       </SidebarItem>
 
       <div className={styles["Others"]}>
-        <IconAndLabel text="Upgrade" Icon={GrUpgrade} />
-        <IconAndLabel text="Whats New" Icon={MdNotificationsActive} />
-        <IconAndLabel text="Help" Icon={MdHelp} />
-        <IconAndLabel text="Profile" Icon={BsPersonFillCheck} />
+        <IconAndLabel
+          text="Upgrade"
+          Icon={GrUpgrade}
+          customStyles={styles["IconAndLabelCustomStyle"]}
+        />
+        <IconAndLabel
+          text="Whats New"
+          Icon={MdNotificationsActive}
+          customStyles={styles["IconAndLabelCustomStyle"]}
+        />
+        <IconAndLabel
+          text="Help"
+          Icon={MdHelp}
+          customStyles={styles["IconAndLabelCustomStyle"]}
+        />
+        <IconAndLabel
+          text="Profile"
+          Icon={BsPersonFillCheck}
+          customStyles={styles["IconAndLabelCustomStyle"]}
+        />
         <ToggleTheme />
       </div>
     </section>

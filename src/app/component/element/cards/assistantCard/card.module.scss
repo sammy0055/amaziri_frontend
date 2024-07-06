@@ -1,0 +1,25 @@
+@import "../../../../../globalStyles/variables.module";
+
+.Card {
+  max-width: 18.625rem;
+  border: 1px solid $border-color-light;
+  padding: 0.5rem;
+  border-radius: 1ch;
+}
+
+[data-theme="dark"] .Card {
+  border-color: $border-color-dark;
+}
+
+.IconTop {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Heading {
+  font-size: 1rem;
+}
+
+.TextWrapper {
+  padding: 0.5rem;
+}
