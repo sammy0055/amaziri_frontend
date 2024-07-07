@@ -26,3 +26,12 @@ export interface ProfilePayload {
 export enum LocalStorageVariables {
   AMAZIRI_IDTOKEN = "AMAZIRI_IDTOKEN",
 }
+
+export type AlertColors =
+  | "danger"
+  | "neutral"
+  | "primary"
+  | "success"
+  | "warning";
+
+  

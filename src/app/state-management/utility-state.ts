@@ -1,10 +1,16 @@
 import { v4 } from "uuid";
 import { atom, useRecoilState } from "recoil";
+import { AlertColors } from "@/types/common";
 
-const ErrorState = atom({
+const ErrorState = atom<{
+  isAlertActive: boolean;
+  message: string;
+  color: AlertColors;
+}>({
   default: {
-    isError: false,
+    isAlertActive: false,
     message: "",
+    color: "neutral",
   },
   key: v4(),
 });

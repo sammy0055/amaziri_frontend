@@ -1,24 +1,31 @@
 import { useErrorState } from "@/app/state-management/utility-state";
+import { AlertColors } from "@/types/common";
 
 export const useAlertHandler = () => {
-  const [{ isError: isErrorActive, message: errorMessage }, setErrorMessage] =
+  const [{ isAlertActive, message: alertMessage, color }, setAlertMessage] =
     useErrorState();
 
-  const openAndCloseErrorCard = () =>
-    setErrorMessage((prevState) => {
-      return { ...prevState, isError: !prevState.isError };
+  const openAndCloseAlertCard = () =>
+    setAlertMessage((prevState) => {
+      return { ...prevState, isAlertActive: !prevState.isAlertActive };
     });
 
-  const handleErrorMessage = (message: string) => {
-    setErrorMessage((prevState) => {
-      return { ...prevState, isError: true, message };
+  const handleAlertMessage = (message: string, color?: AlertColors) => {
+    setAlertMessage((prevState) => {
+      return {
+        ...prevState,
+        isAlertActive: true,
+        message,
+        color: color || "neutral",
+      };
     });
   };
-  
+
   return {
-    errorMessage,
-    isErrorActive,
-    handleErrorMessage,
-    openAndCloseErrorCard,
+    color,
+    alertMessage,
+    isAlertActive,
+    handleAlertMessage,
+    openAndCloseAlertCard,
   };
 };

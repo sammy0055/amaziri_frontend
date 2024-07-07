@@ -5,7 +5,6 @@ import { ThemesProvider } from "./theme/theme-provider";
 import { ToggleTheme } from "./theme/theme-control";
 import { ApolloProviderClient } from "./graphql/provider";
 import { RecoilRootProvider } from "./state-management/provider";
-import { AlertErrorCard } from "./component/element/cards/alertCard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +25,6 @@ export default function RootLayout({
           <ApolloProviderClient>
             <ThemesProvider>
               {/* <ToggleTheme /> */}
-              <AlertErrorCard />
               {children}
             </ThemesProvider>
           </ApolloProviderClient>
