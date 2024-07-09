@@ -8,6 +8,9 @@ import { IoIosAddCircle } from "react-icons/io";
 import { Divider } from "@mui/joy";
 import { AssistantCard } from "../cards/assistantCard";
 import { useAssistant } from "@/app/hooks/assistant";
+import { useAssistantState } from "@/app/state-management/assistant";
+import { Assistant } from "@/types/assistant";
+import { useEffect } from "react";
 
 export const SettingsArea = () => {
   const { startCreateAssistantProcess } = useAssistant();
@@ -38,11 +41,28 @@ export const SettingsArea = () => {
   );
 };
 
-export const AssistantArea = () => {
+interface AssistantAreaProps {
+  data: Assistant[];
+}
+export const AssistantArea: React.FC<AssistantAreaProps> = ({ data }) => {
+  const [assistantData, setAssistantData] = useAssistantState();
+
+  useEffect(() => {
+    setAssistantData(data);
+  }, [data]);
+
   return (
     <div className={styles["AssistantArea"]}>
-      <AssistantCard />
-      <AssistantCard />
+      {assistantData?.map((assistant) => {
+        return (
+          <AssistantCard
+            key={assistant?._id}
+            name={assistant?.name}
+            description={assistant?.description}
+            _id={assistant?._id}
+          />
+        );
+      })}
     </div>
   );
 };

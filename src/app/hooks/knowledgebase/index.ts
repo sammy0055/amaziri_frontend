@@ -2,6 +2,7 @@ import {
   addDocumentToKnowledgeBase,
   addDocumentToVectorStore,
   addKnowledgeBase,
+  getKnowledgeBase,
   removeDocument,
   removeKnowledgeBase,
   updateKnowledgeBase,
@@ -10,6 +11,7 @@ import { useKnowledgeBaseState } from "@/app/state-management/knowledge-base";
 import { ChangeEvent, useState } from "react";
 import { useErrorHandler } from "../common/error";
 import debounce from "debounce";
+import { useGqlApiCall } from "../gqlApiCall";
 
 export const useKnowledgeBase = () => {
   const [isOpen, setIsopen] = useState(true);
@@ -18,15 +20,41 @@ export const useKnowledgeBase = () => {
 
   const [isDisabled, setIsDisabled] = useState(false);
   const { handleError } = useErrorHandler();
+  const gqlApiCall = useGqlApiCall();
 
   const openAndClose = () => setIsopen(!isOpen);
 
-  const addKnowledgeVault = async () => {
+  const getKnowledgeVaults = async () => {
     setIsDisabled(true);
     try {
-      const data = await addKnowledgeBase({
-        name: "new folder",
+      const data = await gqlApiCall(async (token) => {
+        return await getKnowledgeBase(token);
       });
+      if (!data) throw new Error("something went wrong");
+      setIsDisabled(false);
+
+      setKnowledgeBase({
+        knowledgeBase: data?.data,
+        selectedKnowledgeBase: data?.data[0],
+      });
+    } catch (error: any) {
+      setIsDisabled(false);
+      handleError(error);
+    }
+  };
+
+  const addKnowledgeVault = async (name?: string) => {
+    setIsDisabled(true);
+    try {
+      const data = await gqlApiCall(async (token) => {
+        return await addKnowledgeBase(
+          {
+            name: name || "new folder",
+          },
+          token
+        );
+      });
+
       setIsDisabled(false);
       const newFolder = data?.data!;
       setKnowledgeBase((prevState) => {
@@ -45,7 +73,9 @@ export const useKnowledgeBase = () => {
   const updateKnowledgeVault = async (_data: { _id: string; name: string }) => {
     setIsDisabled(true);
     try {
-      const data = await updateKnowledgeBase(_data);
+      const data = await gqlApiCall(async (token) => {
+        return await updateKnowledgeBase(_data, token);
+      });
       setIsDisabled(false);
       const newFolder = data?.data!;
 
@@ -67,7 +97,9 @@ export const useKnowledgeBase = () => {
     const _id = selectedKnowledgeBase._id;
     setIsDisabled(true);
     try {
-      await removeKnowledgeBase({ _id });
+      await gqlApiCall(async (token) => {
+        return await removeKnowledgeBase({ _id }, token);
+      });
       setIsDisabled(false);
       setKnowledgeBase((prevState) => {
         return {
@@ -134,7 +166,9 @@ export const useKnowledgeBase = () => {
           fileName: file.name,
         };
 
-        const payload = await addDocumentToKnowledgeBase(data);
+        const payload = await gqlApiCall(async (token) => {
+          return await addDocumentToKnowledgeBase(data, token);
+        });
         // console.log(payload?.data);
         const res = await fetch(payload?.data?.uploadUrl!, {
           method: "PUT",
@@ -185,7 +219,9 @@ export const useKnowledgeBase = () => {
       (item) => item._id !== _id
     );
     try {
-      await removeDocument(_id);
+      await gqlApiCall(async (token) => {
+        return await removeDocument(_id, token);
+      });
       setKnowledgeBase((prevState) => {
         return {
           ...prevState,
@@ -216,6 +252,7 @@ export const useKnowledgeBase = () => {
     isDisabled,
     knowledgeBase,
     selectedKnowledgeBase,
+    getKnowledgeVaults,
     setKnowledgeBase,
     openAndClose,
     addKnowledgeVault,

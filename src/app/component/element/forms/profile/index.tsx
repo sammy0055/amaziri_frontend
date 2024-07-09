@@ -30,7 +30,7 @@ export const ProfileSetupForm = () => {
         value={profile.organization}
         handleChange={(e) => handleProfileChange(e)}
       />
-      <Button buttonName="continue" type="submit" isDisabled={isDisabled} />
+      <Button type="submit" isDisabled={isDisabled}>continue</Button>
     </form>
   );
 };

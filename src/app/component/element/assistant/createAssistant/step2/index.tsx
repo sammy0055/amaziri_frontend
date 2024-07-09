@@ -14,23 +14,26 @@ export const CreateAssistantStep2: React.FC<CreateAssistantStepProps> = ({
   prevStep,
   nextStep,
 }) => {
-  const { assistantInputData, handleAssistantChange, validateRequiredFields } = useAssistant();
+  const { assistantInputData, handleAssistantChange, validateRequiredFields } =
+    useAssistant();
 
   const handleNext = () => {
-    const isValid = validateRequiredFields()
-    if(isValid) nextStep()
-  }
+    const isValid = validateRequiredFields();
+    if (isValid) nextStep();
+  };
   return (
     <div className={styles["CreateAssistantStep2"]}>
       <div>
         <Heading customStyles={styles["Haeding"]}>
-          Customize the Assistant
+        Customize the Assistant
         </Heading>
         <LabelParagraph>
-          Instructions are how you explain to the assistant what it's goal is,
-          and share any other context you want it to always know. These
-          instructions have been auto-generated based on the information you
-          provided. You can always edit this later.
+         
+            Instructions are how you explain to the assistant what it's goal is,
+            and share any other context you want it to always know. These
+            instructions have been auto-generated based on the information you
+            provided. You can always edit this later.
+          
         </LabelParagraph>
       </div>
       <div className={styles["Divider"]}>

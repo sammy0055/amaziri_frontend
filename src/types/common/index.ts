@@ -27,6 +27,15 @@ export enum LocalStorageVariables {
   AMAZIRI_IDTOKEN = "AMAZIRI_IDTOKEN",
 }
 
+export enum appEnums  {
+  CONTINUEURL = "continueUrl"
+}
+
+export enum CookiesKeys {
+  AMAZIRI_IDTOKEN = "AMAZIRI_IDTOKEN",
+  AMAZIRI_IDTOKEN_EXP = "AMAZIRI_IDTOKEN_EXP"
+}
+
 export type AlertColors =
   | "danger"
   | "neutral"

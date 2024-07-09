@@ -29,7 +29,12 @@ export const LoginForm = () => {
       <Button type="submit">login</Button>
       <span className={styles["Heading3"]}>
         <Heading3>
-          Don't have an account? <Link href={"/sign_up"}>SignUp Here</Link>{" "}
+          <span>
+            {" "}
+            Don't have an account? <Link href={"/sign_up"}>
+              SignUp Here
+            </Link>{" "}
+          </span>
         </Heading3>
       </span>
     </form>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./button.module.scss";
 import { Button as Btn } from "@mui/joy";
+import { ReactNode } from "react";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -44,6 +45,21 @@ export const SignUpWithGoogleBtn: React.FC<ButtonProps> = ({
         alt="google logo"
       />
       <span>{children}</span>
+    </button>
+  );
+};
+
+interface IconBtnWrapperProps {
+  children: ReactNode;
+  handler?: () => void;
+}
+export const IconBtnWrapper: React.FC<IconBtnWrapperProps> = ({
+  children,
+  handler,
+}) => {
+  return (
+    <button className={styles["BackgroundlessBtn"]} onClick={handler}>
+      {children}
     </button>
   );
 };

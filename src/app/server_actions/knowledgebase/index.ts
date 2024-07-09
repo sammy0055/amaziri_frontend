@@ -8,83 +8,125 @@ import {
   removeDocumentSchema,
   updateKnowledgeBaseSchema,
 } from "@/app/graphql/mutation/knowledgebase";
-import { gqlServerMutation } from "../gql";
+import { gqlServerMutation, gqlServerQuery } from "../gql";
 import {
   AddDocumentInput,
   Document,
   DocumentPayload,
   KnowledgeVault,
   KnowledgeVaultPayload,
+  KnowledgeVaultsPayload,
 } from "@/types/knowledgebase";
+import { getKnowledgeVaultsSchema } from "@/app/graphql/query/knowledge-base";
 
-export const addKnowledgeBase = async (data: { name: string }) => {
+export const getKnowledgeBase = async (token?: string) => {
+  const serverQuery = await gqlServerQuery();
+  const res = await serverQuery<{
+    getKnowledgeVaults: KnowledgeVaultsPayload;
+  }>(getKnowledgeVaultsSchema, null, token);
+  return res.data.getKnowledgeVaults;
+};
+
+export const addKnowledgeBase = async (
+  data: { name: string },
+  token?: string
+) => {
   const mutation = await gqlServerMutation();
   const payload = await mutation<{
     createKnowledgeVault: KnowledgeVaultPayload;
-  }>(addKnowledgeBaseSchema, {
-    vaultData: data,
-  });
+  }>(
+    addKnowledgeBaseSchema,
+    {
+      vaultData: data,
+    },
+    token
+  );
 
   return payload.data?.createKnowledgeVault;
 };
 
 export const updateKnowledgeBase = async (
-  data: Pick<KnowledgeVault, "_id" | "name">
+  data: Pick<KnowledgeVault, "_id" | "name">,
+  token?: string
 ) => {
   const mutation = await gqlServerMutation();
   const payload = await mutation<{
     updateKnowledgeVault: KnowledgeVaultPayload;
-  }>(updateKnowledgeBaseSchema, {
-    vaultData: data,
-  });
+  }>(
+    updateKnowledgeBaseSchema,
+    {
+      vaultData: data,
+    },
+    token
+  );
 
   return payload.data?.updateKnowledgeVault;
 };
 
 export const removeKnowledgeBase = async (
-  data: Pick<KnowledgeVault, "_id">
+  data: Pick<KnowledgeVault, "_id">,
+  token?: string
 ) => {
   const mutation = await gqlServerMutation();
   const payload = await mutation<{
     removeKnowledgeVault: KnowledgeVaultPayload;
-  }>(deleteKnowledgeBaseSchema, {
-    vaultId: data._id,
-  });
+  }>(
+    deleteKnowledgeBaseSchema,
+    {
+      vaultId: data._id,
+    },
+    token
+  );
 
   return payload.data?.removeKnowledgeVault;
 };
 
 //------------------------ document section --------------------
 
-export const addDocumentToKnowledgeBase = async (data: AddDocumentInput) => {
+export const addDocumentToKnowledgeBase = async (
+  data: AddDocumentInput,
+  token?: string
+) => {
   const mutation = await gqlServerMutation();
   const payload = await mutation<{
     uploadDocument: DocumentPayload;
-  }>(addDocumentSchema, {
-    DocumentData: data,
-  });
+  }>(
+    addDocumentSchema,
+    {
+      DocumentData: data,
+    },
+    token
+  );
   return payload.data?.uploadDocument;
 };
 
-export const addDocumentToVectorStore = async (data: {
-  _id: string;
-  fileName: string;
-}) => {
+export const addDocumentToVectorStore = async (
+  data: {
+    _id: string;
+    fileName: string;
+  },
+  token?: string
+) => {
   const mutation = await gqlServerMutation();
   const payload = await mutation<{ uploadDocument: any }>(
     addDocumentToVectorStoreSchema,
     {
       DocumentData: data,
-    }
+    },
+    token
   );
 
   return payload.data?.uploadDocument;
 };
 
-export const removeDocument = async (_id: string) => {
+export const removeDocument = async (_id: string, token?: string) => {
   const mutation = await gqlServerMutation();
-  const payload = await mutation(removeDocumentSchema, {
-    documentId: _id,
-  });
+  const payload = await mutation(
+    removeDocumentSchema,
+    {
+      documentId: _id,
+    },
+    token
+  );
   return payload.data;
 };

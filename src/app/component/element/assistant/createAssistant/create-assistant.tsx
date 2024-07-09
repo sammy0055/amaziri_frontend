@@ -1,5 +1,5 @@
 "use client";
-import { LinearProgress } from "@mui/joy";
+import { Divider, LinearProgress } from "@mui/joy";
 import { PopUp } from "../../popup";
 import styles from "./index.module.scss";
 import { IconLabel } from "@/app/component/atom/typography";
@@ -10,21 +10,27 @@ import { ReactNode, useState } from "react";
 import { CreateAssistantStep2 } from "./step2";
 import { CreateAssistantStep3 } from "./step3";
 import { CreateAssistantStep4 } from "./step4";
+import { Heading, LabelParagraph } from "@/app/component/atom/headings";
+import { CreateAssistantStep5 } from "./step5";
 
 export const CreateAssistantFlow = () => {
-  const [step, setStep] = useState(2);
+  const [progress, setProgress] = useState(25);
+  const [step, setStep] = useState(0);
 
-  const nextStep = () =>
+  const nextStep = () => {
     setStep((prevStep) => {
       if (prevStep < 3) return prevStep + 1;
       return prevStep;
     });
+    setProgress((prevState) => prevState + 25);
+  };
 
   const prevStep = () => {
     setStep((prevStep) => {
       if (prevStep > 0) return prevStep - 1;
       return prevStep;
     });
+    setProgress((prevState) => prevState - 25);
   };
 
   const components: { [key: number]: ReactNode } = {
@@ -32,11 +38,12 @@ export const CreateAssistantFlow = () => {
     1: <CreateAssistantStep2 nextStep={nextStep} prevStep={prevStep} />,
     2: <CreateAssistantStep3 nextStep={nextStep} prevStep={prevStep} />,
     3: <CreateAssistantStep4 nextStep={nextStep} prevStep={prevStep} />,
+    // 4: <CreateAssistantStep5 />,
   };
 
   return (
     <PopUp customStyles={styles["Flow-Container"]}>
-      <LinearProgress determinate value={25} />
+      <LinearProgress determinate value={progress} />
       <div className={styles["PopUpContent"]}>
         <SectionLabel />
         {components[step]}
@@ -51,5 +58,26 @@ export const SectionLabel = () => {
       <IoCreateOutline size={20} />
       <IconLabel text="CREATE YOUR ASSISTANT" />
     </div>
+  );
+};
+
+interface HeadingSectionProps {
+  title: string;
+  description: string;
+}
+export const HeadingSection: React.FC<HeadingSectionProps> = ({
+  title,
+  description,
+}) => {
+  return (
+    <>
+      <div>
+        <Heading customStyles={styles["Haeding"]}>{title}</Heading>
+        <LabelParagraph>{description}</LabelParagraph>
+      </div>
+      <div className={styles["Divider"]}>
+        <Divider />
+      </div>
+    </>
   );
 };

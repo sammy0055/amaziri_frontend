@@ -2,7 +2,7 @@
 import { client } from "@/app/graphql";
 import { loginSchema, signupSchema } from "@/app/graphql/mutation";
 import { AuthInput } from "@/types/auth";
-import { LocalStorageVariables } from "@/types/common";
+import { CookiesKeys, LocalStorageVariables } from "@/types/common";
 import { cookies } from "next/headers";
 
 interface AuthPayload {
@@ -61,4 +61,23 @@ export const setCookie = async (key: string, value: string) => {
     path: "/",
     sameSite: "lax",
   });
+};
+
+export const addAuthCookies = ({
+  idToken,
+  exp,
+}: {
+  idToken: string;
+  exp: string;
+}) => {
+  setCookie(CookiesKeys.AMAZIRI_IDTOKEN, idToken);
+  setCookie(CookiesKeys.AMAZIRI_IDTOKEN_EXP, exp);
+};
+
+export const getAuthDataFromCookies = () => {
+  const cookie = cookies();
+  const token = cookie.get(CookiesKeys.AMAZIRI_IDTOKEN);
+  const exp = cookie.get(CookiesKeys.AMAZIRI_IDTOKEN_EXP);
+
+  return { token, exp };
 };

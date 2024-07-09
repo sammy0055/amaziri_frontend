@@ -1,10 +1,11 @@
 @import "../../../../../globalStyles/variables.module";
 
 .Card {
-  max-width: 18.625rem;
+  min-width: 18.625rem;
   border: 1px solid $border-color-light;
   padding: 0.5rem;
   border-radius: 1ch;
+  margin: 1rem;
 }
 
 [data-theme="dark"] .Card {

@@ -1,10 +1,10 @@
 import { useAlertHandler } from "./alert";
 
 export const useErrorHandler = () => {
-  const { errorMessage, handleErrorMessage } = useAlertHandler();
+  const { alertMessage, handleAlertMessage } = useAlertHandler();
   const handleError = (error: any) => {
-    handleErrorMessage(error?.message || "");
-    console.log("errors", errorMessage);
+    handleAlertMessage(error?.message || "");
+    console.log("errors", alertMessage);
   };
 
   return { handleError };

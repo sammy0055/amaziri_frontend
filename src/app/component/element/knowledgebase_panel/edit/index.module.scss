@@ -1,0 +1,80 @@
+@import "../../../../../globalStyles/variables.module";
+
+.Divider {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.KnowledgeBaseWrapper {
+  width: 100%;
+  height: 30vh;
+  border: 1px solid $border-color-light;
+  border-radius: 8px;
+}
+
+.KnowledgeBaseAreaContent {
+  width: 100%;
+}
+
+.Content {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem;
+  transition: background-color 0.2s ease-in-out;
+  &:hover {
+    background-color: $hover-color-light;
+  }
+}
+
+.IconContainer {
+  display: flex;
+  align-items: center;
+}
+
+.IconWrapper {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.IconWrapper > span {
+  margin-left: 12px;
+}
+
+.DocumentArea {
+  width: 100%;
+}
+
+.DocumentArea .IconWrapper {
+  margin-left: 2rem;
+}
+
+.Selected {
+  background-color: $hover-color-light;
+}
+
+.Selected-IconWrapper {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.FileInput {
+  display: none;
+}
+
+.KnowledgeBaseEmptyDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.KnowledgeBaseEmptyDisplay > p {
+  margin: 1rem;
+}
+[data-theme="dark"] .Selected {
+  background-color: $background-color-dark;
+}

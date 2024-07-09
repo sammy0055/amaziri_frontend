@@ -9,14 +9,7 @@ const knowledgebase = atom<{
 }>({
   key: v4(),
   default: {
-    knowledgeBase: [
-      { _id: "1", name: "general", documents: [] },
-      {
-        _id: "2",
-        name: "marketing assistant",
-        documents: [],
-      },
-    ],
+    knowledgeBase: [],
     selectedKnowledgeBase: {
       _id: "",
       name: "",

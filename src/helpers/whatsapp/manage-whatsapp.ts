@@ -6,15 +6,9 @@ const AppSecret = getEnv("META_APP_SECRET");
 export class WhatsappManager {
   whatSappLogin = (redirectUrl = "http://localhost:3000/") => {
     const configId = getEnv("META_APP_WHATSAPP_AUTH_CONFIG");
-    const accessScope = [
-      "whatsapp_business_management",
-      "whatsapp_business_messaging",
-      "business_management",
-    ];
     const urlParams = queryString.stringify({
       client_id: AppId,
       config_id: configId,
-      // scope: accessScope,
       response_type: "code",
       override_default_response_type: true,
       redirect_uri: redirectUrl,

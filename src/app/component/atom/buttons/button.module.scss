@@ -1,6 +1,5 @@
 @import "../../../../globalStyles/index.module";
 
-
 .Button {
   width: 100%;
 }
@@ -85,9 +84,9 @@
   text-align: center;
   cursor: pointer;
   transition: ease;
-  margin-right: 1rem;
+  border-radius: 50%;
+  transition: background 0.2s ease-in-out;
   &:hover {
-    border-radius: 50%;
     background-color: $hover-color-light;
   }
 }

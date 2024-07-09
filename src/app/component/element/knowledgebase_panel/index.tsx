@@ -46,9 +46,9 @@ export const KnowledgeBasePanel: React.FC<KnowledgeBasePanelProps> = ({
 
         {isOpen && (
           <div className={styles["DropdownContainer"]}>
-            {knowledgeBase.map(({ name, _id }) => (
-              <div key={_id} onClick={() => selecteKnowledgeBase(_id)}>
-                <IconAndLabel text={name} Icon={IoFolderOpen} />
+            {knowledgeBase.map((item) => (
+              <div key={item?._id} onClick={() => selecteKnowledgeBase(item?._id)}>
+                <IconAndLabel text={item?.name} Icon={IoFolderOpen} />
               </div>
             ))}
           </div>

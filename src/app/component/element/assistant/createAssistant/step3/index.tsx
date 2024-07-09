@@ -36,7 +36,7 @@ export const CreateAssistantStep3: React.FC<CreateAssistantStepProps> = ({
           still reference the knowledge base using "#" within a chat.`}
           useCase1="Marketing assistants generating high-level content"
           useCase2="Sales assistants crafting sales emails"
-          type=""
+          type="NONE"
           selectedType={assistantInputData.type}
           onSelect={selectAssistantType}
         />
@@ -67,9 +67,9 @@ interface AssistantTypeCardProps {
   description: string;
   useCase1: string;
   useCase2: string;
-  type: "" | "Q&A";
-  selectedType: "" | "Q&A";
-  onSelect: (type: "" | "Q&A") => void;
+  type: "NONE" | "Q&A";
+  selectedType: "NONE" | "Q&A";
+  onSelect: (type: "NONE" | "Q&A") => void;
 }
 const AssistantTypeCard: React.FC<AssistantTypeCardProps> = ({
   title,

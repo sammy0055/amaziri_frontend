@@ -8,7 +8,8 @@ import {
 } from "../../element/knowledgebase_panel";
 import { Button } from "../../atom/buttons";
 const getKnowledgeBase = async () => {
-  const res = await gqlServerQuery<{
+  const serverQuery = await gqlServerQuery();
+  const res = await serverQuery<{
     getKnowledgeVaults: KnowledgeVaultsPayload;
   }>(getKnowledgeVaultsSchema);
   return res.data.getKnowledgeVaults;
