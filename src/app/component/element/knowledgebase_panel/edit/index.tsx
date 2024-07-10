@@ -29,7 +29,7 @@ export const KnowledgeBaseArea = () => {
 };
 
 const KnowledgeBaseAreaContent = () => {
-  const { knowledgeBase, isDisabled, getKnowledgeVaults, addKnowledgeVault } =
+  const { knowledgeBase, isDisabled, getKnowledgeVaults } =
     useKnowledgeBase();
 
   useEffect(() => {

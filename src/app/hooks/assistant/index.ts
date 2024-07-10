@@ -9,7 +9,8 @@ import { useGqlApiCall } from "../gqlApiCall";
 import { addDocumentToKnowledgeBase } from "@/app/server_actions/knowledgebase";
 import { useKnowledgeBaseState } from "@/app/state-management/knowledge-base";
 import { useErrorHandler } from "../common/error";
-import { createAssistant } from "@/app/server_actions/assistant";
+import { createAssistant, editAssistant } from "@/app/server_actions/assistant";
+import { Assistant } from "@/types/assistant";
 
 export const useAssistant = () => {
   const [open, setOpen] = useOpenAndClosePopUp();
@@ -154,6 +155,42 @@ export const useAssistant = () => {
     }
   };
 
+  const submitEditAssistantData = async () => {
+    setIsDisabled(true);
+    try {
+      const data = await gqlApiCall(async (token) => {
+        return await editAssistant(assistantInputData as any, token);
+      });
+      setIsDisabled(false);
+      setAssistantInputData({
+        name: "",
+        description: "",
+        brandVoice: "",
+        type: "NONE",
+        instructions: [],
+        knowledgeVault: [],
+      });
+
+      const updatedAssistantData = assistantData?.map((item) => {
+        if (item._id === data?.data?._id) return data?.data!;
+        return item;
+      });
+      setAssistantData(updatedAssistantData);
+      setOpen(false);
+      return true;
+    } catch (error: any) {
+      setIsDisabled(false);
+      handleError(error);
+    }
+  };
+
+  const handleSetAssistantEditData = (_id: string) => {
+    const editData = assistantData.find((item) => item._id === _id);
+    const newData = JSON.parse(JSON.stringify(editData));
+    if (newData?.__typename) delete newData.__typename;
+    if (editData) setAssistantInputData(newData);
+  };
+
   return {
     isDisabled,
     assistantInputData,
@@ -164,5 +201,7 @@ export const useAssistant = () => {
     handleSelectKnowledgeBase,
     handleFileChangeInput,
     submitCreateAssistantData,
+    handleSetAssistantEditData,
+    submitEditAssistantData,
   };
 };

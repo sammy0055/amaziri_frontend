@@ -18,6 +18,24 @@ export const addAssistantSchema = gql`
   }
 `;
 
+export const editAssistantSchema = gql`
+  mutation UpdateAssistant($assistantData: AssistantUpdateInput!) {
+    updateAssistant(AssistantInputData: $assistantData) {
+      code
+      data {
+        _id
+        name
+        description
+        brandVoice
+        type
+        knowledgeVault
+        instructions
+        organization
+      }
+    }
+  }
+`;
+
 export const getAssistantsSchema = gql`
   query GetAssistants {
     getAssistants {

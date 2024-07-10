@@ -51,7 +51,7 @@ export const SignUpWithGoogleBtn: React.FC<ButtonProps> = ({
 
 interface IconBtnWrapperProps {
   children: ReactNode;
-  handler?: () => void;
+  handler?: (e?:any) => void;
 }
 export const IconBtnWrapper: React.FC<IconBtnWrapperProps> = ({
   children,

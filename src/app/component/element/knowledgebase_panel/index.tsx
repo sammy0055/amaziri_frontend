@@ -121,7 +121,7 @@ export const AddFolder = () => {
   const { addKnowledgeVault, isDisabled } = useKnowledgeBase();
   return (
     <>
-      <Button handler={addKnowledgeVault} isDisabled={isDisabled}>
+      <Button handler={() => addKnowledgeVault()} isDisabled={isDisabled}>
         add folder
       </Button>
     </>

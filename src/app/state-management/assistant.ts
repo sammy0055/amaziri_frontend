@@ -10,7 +10,7 @@ const createAssistant = atom<AssistantInput>({
     type: "NONE",
     brandVoice: "",
     knowledgeVault: [],
-    instructions: [""],
+    instructions: [],
   },
 });
 
