@@ -1,0 +1,41 @@
+.ChatContainer {
+  width: 100%;
+  height: 80vh;
+  //   background-color: gray;
+}
+
+.ChooseAssistat {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.MessagesArea {
+  width: 100%;
+  height: 70%;
+  //   background-color: yellow;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.InputAreaContainer {
+  width: 100%;
+  height: 20%;
+    // background-color: green;
+  display: flex;
+  justify-content: center;
+}
+
+.SelectWrapper {
+    width: 17rem;
+}
+
+.CustomHeadingStyles {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

@@ -1,4 +1,5 @@
 import {
+  useAssistantChatState,
   useAssistantState,
   useCreateAssistantState,
 } from "@/app/state-management/assistant";
@@ -10,15 +11,16 @@ import { addDocumentToKnowledgeBase } from "@/app/server_actions/knowledgebase";
 import { useKnowledgeBaseState } from "@/app/state-management/knowledge-base";
 import { useErrorHandler } from "../common/error";
 import { createAssistant, editAssistant } from "@/app/server_actions/assistant";
-import { Assistant } from "@/types/assistant";
 
 export const useAssistant = () => {
   const [open, setOpen] = useOpenAndClosePopUp();
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isChatBtnActive, setIsChatBtnActive] = useState(false);
   const { handleAlertMessage } = useAlertHandler();
   const { handleError } = useErrorHandler();
   const gqlApiCall = useGqlApiCall();
   const [assistantInputData, setAssistantInputData] = useCreateAssistantState();
+  const [assistantChatData, setAssistantChatData] = useAssistantChatState();
   const [assistantData, setAssistantData] = useAssistantState();
   const [_, setKnowledgeBase] = useKnowledgeBaseState();
 
@@ -191,9 +193,64 @@ export const useAssistant = () => {
     if (editData) setAssistantInputData(newData);
   };
 
+  const selectChatAssistant = (_id: string) => {
+    setAssistantChatData((prevState) => {
+      return { ...prevState, _id: _id };
+    });
+    btnState();
+  };
+
+  const btnState = () => {
+    const { queryText } = assistantChatData;
+    const isInvalidQueryText = !queryText || queryText.length <= 1;
+    const isId = assistantChatData._id;
+
+    if (!isInvalidQueryText && isId) setIsChatBtnActive(true);
+    else setIsChatBtnActive(false);
+  };
+
+  const handleAssistantChatInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setAssistantChatData((prevState) => {
+      return { ...prevState, queryText: value };
+    });
+
+    btnState();
+  };
+
+  const handleSubmitAssistantChatData = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    if (e.key === "Enter") {
+      if (e.shiftKey) return;
+
+      e.preventDefault(); // Prevents the default action of adding a new line
+      setIsChatBtnActive(false);
+      setIsDisabled(true)
+      setAssistantChatData((prevState) => {
+        return {
+          ...prevState,
+          queryText: "",
+          allChats: [
+            ...prevState.allChats,
+            { queryText: assistantChatData.queryText },
+          ],
+        };
+      });
+      // console.log("====================================");
+      // console.log(assistantChatData);
+      // console.log("====================================");
+    }
+  };
+
   return {
     isDisabled,
+    isChatBtnActive,
     assistantInputData,
+    assistantChatData,
+    setAssistantChatData,
     handleAssistantChange,
     startCreateAssistantProcess,
     validateRequiredFields,
@@ -203,5 +260,8 @@ export const useAssistant = () => {
     submitCreateAssistantData,
     handleSetAssistantEditData,
     submitEditAssistantData,
+    selectChatAssistant,
+    handleAssistantChatInputChange,
+    handleSubmitAssistantChatData,
   };
 };

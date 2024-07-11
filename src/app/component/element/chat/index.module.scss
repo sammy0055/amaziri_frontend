@@ -1,0 +1,112 @@
+@import "../../../../globalStyles/variables.module";
+
+.MessageContainer {
+  width: 70%;
+  height: 100%;
+  //   background-color: red;
+}
+
+.IconWrapper {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid $border-color-light;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.BtnDisabled {
+  opacity: 0.2;
+  background-color: #fff;
+  cursor: not-allowed;
+}
+
+.InputArea {
+  width: 70%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $background-color-light;
+  border-radius: 5ch;
+  border: 1px solid $border-color-light;
+  padding: 6px;
+}
+
+.TextAreaStyle {
+  width: 100%;
+  height: 100%;
+  border-radius: 5ch;
+  border: none;
+  outline: none;
+}
+
+.EmptyChatContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.EmptyChatWrapper {
+  display: flex;
+  margin-top: 3rem;
+}
+
+.EmptyChatWrapper > div {
+  margin-left: 1rem;
+}
+
+.UserMessageDisplayContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.UserMessageDisplay {
+  width: auto;
+  display: inline-block;
+  padding: .5rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  border-radius: 3ch;
+  border: 1px solid $border-color-light;
+}
+
+.AssistantMessageDisplayContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.AssistantMessageDisplay {
+  width: 100%;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.AssistantMessageDisplayIcon {
+  font-size: 1.5rem;
+  margin-right: 12px;
+}
+
+[data-theme="dark"] .IconWrapper {
+  border: 1px solid $border-color-dark;
+}
+
+[data-theme="dark"] .InputArea,
+[data-theme="dark"] .UserMessageDisplay {
+  border: 1px solid $border-color-dark;
+  background-color: $background-color-dark;
+}
+
+[data-theme="dark"] .BtnDisabled {
+  background-color: #000;
+}

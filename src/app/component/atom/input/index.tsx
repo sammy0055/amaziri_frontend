@@ -20,19 +20,22 @@ export const Input: React.FC<InputProps> = ({
 
 interface TextAreaProps extends InputProps {
   customStyles?: any;
+  handleKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 export const TextArea: React.FC<TextAreaProps> = ({
   value,
   name,
   customStyles,
   handleChange,
+  handleKeyDown,
 }) => {
   return (
     <textarea
-      className={`${styles["Input"]} ${customStyles}`}
+      className={`${styles["Textarea"]} ${customStyles}`}
       name={name}
       value={value}
       onChange={handleChange}
+      onKeyDown={handleKeyDown}
     />
   );
 };

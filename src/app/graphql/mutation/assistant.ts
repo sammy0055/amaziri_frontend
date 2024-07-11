@@ -12,7 +12,6 @@ export const addAssistantSchema = gql`
         type
         knowledgeVault
         instructions
-        organization
       }
     }
   }
@@ -30,7 +29,6 @@ export const editAssistantSchema = gql`
         type
         knowledgeVault
         instructions
-        organization
       }
     }
   }

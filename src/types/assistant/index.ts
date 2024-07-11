@@ -20,3 +20,9 @@ export interface AssistantPayload extends PayloadStatus {
 export interface AssistantsPayload extends PayloadStatus {
   data: Assistant[];
 }
+
+export interface AssistantChat {
+  _id: string;
+  queryText: string;
+  allChats: { queryText?: string; systemResponse?: string }[];
+}

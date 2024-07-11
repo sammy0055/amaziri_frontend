@@ -17,11 +17,13 @@ export const Sidebar = () => {
     <section className={styles["Sidebar-Wrapper"]}>
       <ProjectNameAndLogo />
       <SidebarItem label="ai assistants">
-        <IconAndLabel
-          text="All Chats"
-          Icon={IoChatbubbles}
-          customStyles={styles["IconAndLabelCustomStyle"]}
-        />
+        <Link href={"/home"}>
+          <IconAndLabel
+            text="All Chats"
+            Icon={IoChatbubbles}
+            customStyles={styles["IconAndLabelCustomStyle"]}
+          />
+        </Link>
         <Link href={"/home/assistant"}>
           <IconAndLabel
             text="Assistants"
