@@ -15,7 +15,9 @@ export const useProfile = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const continueUrl = searchParams.get("continueUrl");
-  const handleProfileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleProfileChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setProfile((prevState) => {
       return { ...prevState, [name]: value };

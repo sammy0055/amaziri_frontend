@@ -15,9 +15,10 @@ export const MessageContainer = () => {
   return (
     <div className={styles["MessageContainer"]}>
       {isMessages ? (
-        assistantChatData?.allChats?.map((item) => {
+        assistantChatData?.allChats?.map((item, index) => {
           return (
             <ChatMessageDisplay
+              key={index}
               queryText={item?.queryText!}
               systemResponse={item?.systemResponse!}
             />
