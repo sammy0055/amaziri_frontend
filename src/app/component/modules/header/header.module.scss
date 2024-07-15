@@ -9,6 +9,17 @@
   position: sticky;
   top: 0;
   z-index: 10;
+  display: flex;
+  align-items: center;
+}
+
+.Icon {
+  font-size: 2rem;
+}
+
+.Content {
+  width: 100%;
+  margin-left: 12px;
 }
 
 [data-theme="dark"] .Header {

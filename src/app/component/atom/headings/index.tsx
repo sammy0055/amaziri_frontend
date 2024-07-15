@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import styles from "./headings.module.scss";
 export const ProjectNameHeading = () => {
-  return <span className={styles["ProjectName"]}>Omaziri</span>;
+  return <span className={styles["ProjectName"]}>Amaziri</span>;
 };
 
 interface SmallHeadingProps {

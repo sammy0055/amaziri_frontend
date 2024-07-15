@@ -1,6 +1,9 @@
 import styles from "./styles/index.module.scss";
 
-export default function Home() {
+export default function Home(params: any) {
+  console.log("====================================");
+  console.log(params);
+  console.log("====================================");
   return (
     <main className={styles["Container"]}>
       <div>

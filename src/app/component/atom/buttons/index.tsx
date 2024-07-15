@@ -8,12 +8,14 @@ interface ButtonProps {
   handler?: () => void;
   type?: "button" | "submit";
   isDisabled?: boolean;
+  loading?:boolean
   variant?: "solid" | "soft" | "outlined" | "plain";
 }
 export const Button: React.FC<ButtonProps> = ({
   children,
   type,
   isDisabled = false,
+  loading = false,
   variant,
   handler,
 }) => {
@@ -23,7 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
       onClick={handler}
       type={type}
       disabled={isDisabled}
-      loading={isDisabled}
+      loading={loading}
       variant={variant}
     >
       {children}

@@ -4,11 +4,23 @@
   width: 30%;
   min-height: 40vh;
   border-radius: 1ch;
-  border: 1px solid $border-color-dark;
+  border: 1px solid $border-color-light;
 }
 
-@media screen and (max-width: 720px) {
+//moblie
+@media screen and (max-width: 450px) {
   .Auth-container {
     width: 97%;
   }
+}
+
+//ipad
+@media screen and (min-width: 451px) and (max-width: 810px) {
+  .Auth-container {
+    width: 60%;
+  }
+}
+
+[data-theme="dark"] .Auth-container {
+  border: 1px solid $border-color-dark;
 }

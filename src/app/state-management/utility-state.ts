@@ -23,3 +23,10 @@ const popup = atom({
 });
 
 export const useOpenAndClosePopUp = () => useRecoilState(popup);
+
+export const sidebartoggle = atom({
+  key: v4(),
+  default: false,
+});
+
+export const useSidbarState = () => useRecoilState(sidebartoggle);

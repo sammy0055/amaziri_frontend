@@ -71,7 +71,7 @@
 .UserMessageDisplay {
   width: auto;
   display: inline-block;
-  padding: .5rem;
+  padding: 0.5rem;
   font-size: 0.9rem;
   line-height: 1.5;
   border-radius: 3ch;
@@ -109,4 +109,18 @@
 
 [data-theme="dark"] .BtnDisabled {
   background-color: #000;
+}
+
+@media screen and (max-width: 450px) {
+  .InputArea {
+    width: 90%;
+    height: 40%;
+  }
+}
+
+@media screen and (min-width: 451px) and (max-width: 810px) {
+  .InputArea {
+    width: 90%;
+    height: 40%;
+  }
 }

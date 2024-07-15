@@ -6,7 +6,8 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import { useAuth } from "@/app/hooks/auth";
 export const LoginForm = () => {
-  const { email, password, setEmail, setPassword, loginHandler } = useAuth();
+  const { email, password, isDisabled, setEmail, setPassword, loginHandler } =
+    useAuth();
   return (
     <form className={styles["SignupForm"]} onSubmit={loginHandler}>
       <SignUpWithGoogleBtn handler={() => ""}>
@@ -26,7 +27,9 @@ export const LoginForm = () => {
         value={password}
         handleChange={(e) => setPassword(e.target.value)}
       />
-      <Button type="submit">login</Button>
+      <Button type="submit" isDisabled={isDisabled}>
+        login
+      </Button>
       <span className={styles["Heading3"]}>
         <Heading3>
           <span>

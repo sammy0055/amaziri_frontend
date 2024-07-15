@@ -9,8 +9,12 @@
   border-right: 1px solid $border-color-light;
 }
 
+.SidebarClose {
+  display: none;
+}
+
 [data-theme="dark"] .Sidebar-Wrapper {
-  background-color: #000;
+  background-color: $background-color-dark;
   border-right: 1px solid $border-color-dark;
 }
 
@@ -33,8 +37,29 @@
   margin-left: 12px;
 }
 
-
 .IconAndLabelCustomStyle {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   cursor: pointer;
+}
+
+// mobile
+@media screen and (max-width: 450px) {
+  .Sidebar-Wrapper {
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 12rem;
+    z-index: 9;
+  }
+}
+
+// ipad
+@media screen and (min-width: 451px) and (max-width: 810px) {
+  .Sidebar-Wrapper {
+    position: fixed;
+    top: 1rem;
+    left: 0;
+    width: 12rem;
+    z-index: 9;
+  }
 }

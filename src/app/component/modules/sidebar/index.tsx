@@ -1,5 +1,6 @@
+"use client";
 import styles from "./sidebar.module.scss";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { ProjectNameAndLogo } from "../../molecules/projectName";
 import { FcAssistant } from "react-icons/fc";
 import { LuWorkflow, LuLayoutTemplate } from "react-icons/lu";
@@ -12,9 +13,20 @@ import { IoChatbubbles } from "react-icons/io5";
 import { IconAndLabel } from "../../molecules/IconAndText";
 import { ToggleTheme } from "@/app/theme/theme-control";
 import Link from "next/link";
+import { useSidbarState } from "@/app/state-management/utility-state";
+
 export const Sidebar = () => {
+  const [openSidebar, setOpenSidebar] = useSidbarState();
+
+  useEffect(() => {
+    setOpenSidebar(window.innerWidth <= 810);
+  },[])
   return (
-    <section className={styles["Sidebar-Wrapper"]}>
+    <section
+      className={`${styles["Sidebar-Wrapper"]} ${
+        openSidebar && styles["SidebarClose"]
+      }`}
+    >
       <ProjectNameAndLogo />
       <SidebarItem label="ai assistants">
         <Link href={"/home"}>

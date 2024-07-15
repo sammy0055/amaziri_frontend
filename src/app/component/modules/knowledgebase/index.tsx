@@ -9,7 +9,8 @@ import { useRef } from "react";
 import { useKnowledgeBase } from "@/app/hooks/knowledgebase";
 
 export const KnowledgeBaseArea = () => {
-  const { handleFileChange, isDisabled } = useKnowledgeBase();
+  const { handleFileChange, isDisabled, selectedKnowledgeBase } =
+    useKnowledgeBase();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleClick = () => {

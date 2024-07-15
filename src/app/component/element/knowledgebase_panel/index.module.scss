@@ -81,3 +81,35 @@
 .DeleteBtnComponentWrapper {
   width: 5rem;
 }
+
+@media screen and (max-width: 450px) {
+  .Icon {
+    font-size: 0.5rem;
+  }
+
+  .Selected {
+    width: 100%;
+  }
+
+  .Selected > .Icon {
+    display: none;
+    justify-content: space-between;
+  }
+
+  .Selected > .Text {
+    width: 100%;
+    margin: 0px;
+    font-size: 1rem;
+  }
+
+  .MobileDrawer {
+    padding: 1rem;
+  }
+
+  .MobileDrawer > div {
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 451px) and (max-width: 810px) {
+}

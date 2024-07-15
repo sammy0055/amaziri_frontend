@@ -51,7 +51,7 @@ const AddDocumentComponent: React.FC<AddDocumentCardProps> = ({
     <div className={styles["AddDocumentCardWrapper"]}>
       <div className={styles["AddDocumentCard"]}>
         <div className={styles["IconWrapper"]}>{icon}</div>
-        <div>
+        <div className={styles["Text"]}>
           <h1>{title}</h1>
           <IconLabel text={text} />
         </div>
@@ -63,14 +63,15 @@ const AddDocumentComponent: React.FC<AddDocumentCardProps> = ({
 
 const Document = () => {
   const { selectedKnowledgeBase } = useKnowledgeBase();
+  const isMoble = window.innerWidth < 450;
   return (
     <div>
       <Table aria-label="basic table">
         <thead>
           <tr>
-            <th style={{ width: "40%" }}>Name</th>
-            <th>Created</th>
-            <th>Last</th>
+            <th className={styles["TableName"]}>Name</th>
+            {!isMoble && <th>Created</th>}
+            {!isMoble && <th>Last</th>}
             <th></th>
           </tr>
         </thead>
@@ -106,17 +107,22 @@ const DocumentBody: React.FC<DocumentBodyProps> = ({
   updateAt,
 }) => {
   const { deleteDocument, isDisabled } = useKnowledgeBase();
+  const isMoble = window.innerWidth > 450;
   return (
     <tr>
       <td>
         <IconAndLabel text={originalName} Icon={FaFilePdf} />
       </td>
-      <td>
-        {createdAt ? formatDistanceToNow(createdAt, { addSuffix: true }) : ""}
-      </td>
-      <td>
-        {updateAt ? formatDistanceToNow(updateAt, { addSuffix: true }) : ""}
-      </td>
+      {isMoble && (
+        <td>
+          {createdAt ? formatDistanceToNow(createdAt, { addSuffix: true }) : ""}
+        </td>
+      )}
+      {isMoble && (
+        <td>
+          {updateAt ? formatDistanceToNow(updateAt, { addSuffix: true }) : ""}
+        </td>
+      )}
       <td>
         <BasicPopover
           ButtonComponent={Settings}

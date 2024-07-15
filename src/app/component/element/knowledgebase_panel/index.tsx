@@ -6,9 +6,10 @@ import styles from "./index.module.scss";
 import { useKnowledgeBase } from "@/app/hooks/knowledgebase";
 import { IconType } from "react-icons";
 import { KnowledgeVaultsPayload } from "@/types/knowledgebase";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../atom/buttons";
 import { BasicPopover } from "../popover";
+import { Drawer } from "@mui/joy";
 
 interface KnowledgeBasePanelProps {
   data: KnowledgeVaultsPayload;
@@ -16,13 +17,7 @@ interface KnowledgeBasePanelProps {
 export const KnowledgeBasePanel: React.FC<KnowledgeBasePanelProps> = ({
   data,
 }) => {
-  const {
-    isOpen,
-    knowledgeBase,
-    openAndClose,
-    selecteKnowledgeBase,
-    setKnowledgeBase,
-  } = useKnowledgeBase();
+  const { setKnowledgeBase } = useKnowledgeBase();
 
   useEffect(() => {
     setKnowledgeBase((prevState) => {
@@ -34,26 +29,37 @@ export const KnowledgeBasePanel: React.FC<KnowledgeBasePanelProps> = ({
     });
   }, []);
   return (
-    <>
-      <div className={styles["Files-Section"]}>
-        <div className={styles["FileContainer"]}>
-          <div className={styles["Folder"]} onClick={openAndClose}>
-            {isOpen ? <IoIosArrowDown /> : <IoIosArrowForward />}
-            <IconAndLabel text="All Files" Icon={IoFolderOpen} />
-          </div>
-          <IoMdAdd onClick={() => ""} />
-        </div>
+    <div className={styles["Files-Section"]}>
+      <KnowledgeBasePanelContent />
+    </div>
+  );
+};
 
-        {isOpen && (
-          <div className={styles["DropdownContainer"]}>
-            {knowledgeBase.map((item) => (
-              <div key={item?._id} onClick={() => selecteKnowledgeBase(item?._id)}>
-                <IconAndLabel text={item?.name} Icon={IoFolderOpen} />
-              </div>
-            ))}
-          </div>
-        )}
+export const KnowledgeBasePanelContent = () => {
+  const { isOpen, knowledgeBase, openAndClose, selecteKnowledgeBase } =
+    useKnowledgeBase();
+
+  return (
+    <>
+      <div className={styles["FileContainer"]}>
+        <div className={styles["Folder"]} onClick={openAndClose}>
+          {isOpen ? <IoIosArrowDown /> : <IoIosArrowForward />}
+          <IconAndLabel text="All Files" Icon={IoFolderOpen} />
+        </div>
       </div>
+
+      {isOpen && (
+        <div className={styles["DropdownContainer"]}>
+          {knowledgeBase.map((item) => (
+            <div
+              key={item?._id}
+              onClick={() => selecteKnowledgeBase(item?._id)}
+            >
+              <IconAndLabel text={item?.name} Icon={IoFolderOpen} />
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };
@@ -75,6 +81,7 @@ interface IconAndTextProps {
 }
 const IconAndText: React.FC<IconAndTextProps> = ({ Icon, text }) => {
   const { handleKnowledgeBaseChange } = useKnowledgeBase();
+  const isMoble = window.innerWidth < 450;
   return (
     <div className={styles["Selected"]}>
       <Icon className={styles["Icon"]} />
@@ -83,10 +90,14 @@ const IconAndText: React.FC<IconAndTextProps> = ({ Icon, text }) => {
         value={text}
         onChange={handleKnowledgeBaseChange}
       />
-      <BasicPopover
-        ButtonComponent={Settings}
-        PopUpContent={<DeleteKnowledgbase />}
-      />
+      {isMoble ? (
+        <MobleDrawer />
+      ) : (
+        <BasicPopover
+          ButtonComponent={Settings}
+          PopUpContent={<DeleteKnowledgbase />}
+        />
+      )}
     </div>
   );
 };
@@ -109,6 +120,7 @@ const DeleteKnowledgbase = () => {
       <Button
         variant="plain"
         isDisabled={isDisabled}
+        loading={isDisabled}
         handler={deleteKnowledgeBase}
       >
         delete
@@ -125,5 +137,27 @@ export const AddFolder = () => {
         add folder
       </Button>
     </>
+  );
+};
+
+const MobleDrawer = () => {
+  const [openDrawwer, setOpenDrawer] = useState(false);
+
+  return (
+    <div>
+      <Settings onClick={() => setOpenDrawer(!openDrawwer)} />
+      <Drawer
+        anchor="bottom"
+        open={openDrawwer}
+        onClose={() => setOpenDrawer(false)}
+      >
+        <div className={styles["MobileDrawer"]}>
+          <AddFolder />
+          <div>
+            <KnowledgeBasePanelContent />
+          </div>
+        </div>
+      </Drawer>
+    </div>
   );
 };
