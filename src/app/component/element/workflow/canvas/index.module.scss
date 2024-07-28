@@ -1,0 +1,145 @@
+@import "../../../../../globalStyles/variables.module";
+
+.AddnodeInitial {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AddnodeInitialIconWrapper {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100%;
+  background-color: #6d00cc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  animation: pulse 2s infinite;
+  &:hover {
+    opacity: 0.5;
+    animation-play-state: paused;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.AddnodeInitialIcon {
+  font-size: 3rem;
+  color: #fff;
+}
+
+// ---------------------------------------
+
+.WorkflowCanvasHeading {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.BackBtn {
+  font-size: 2rem;
+  color: #8a8a8a;
+  cursor: pointer;
+}
+
+.WorkflowCanvasHeading > input {
+  font-size: $font-size-lg;
+  font-weight: 600;
+  margin-left: 1rem;
+  outline: none;
+  border: none;
+  background: none;
+  color: #8a8a8a;
+}
+
+// ---------------------------------------
+
+.WorkflowCanvasFooterControls {
+  width: 100%;
+  // background-color: #8a8a8a;
+}
+
+.ControlsContainer {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.RunContainer {
+  display: flex;
+  align-items: center;
+}
+
+.RunContainerHeading {
+  margin-left: 1rem;
+}
+
+.RunWrapper {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5ch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #6d00cc;
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.SheduleWrapper {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.Schedule {
+  margin-left: 1rem;
+  height: 2.5rem;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 0.5ch;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+.Schedule > span {
+  margin-left: 1rem;
+}
+
+.MiniBox {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #fff;
+  border-radius: 0.5ch;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+}

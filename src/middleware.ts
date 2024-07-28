@@ -40,6 +40,7 @@ export async function middleware(request: NextRequest) {
 }
 
 // See "Matching Paths" below to learn more
+// "/home/:path*"
 export const config = {
-  matcher: ["/home", "/home/:path*"],
+  matcher: ["/home"],
 };
