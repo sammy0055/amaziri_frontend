@@ -3,11 +3,25 @@
   height: 60vh;
 }
 
-
-.AddnodeInitial {
-  width: 100%;
+.WorkflowSettingsArea {
+  padding: 1rem;
+  width: 30%;
   height: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: red;
+  overflow-y: scroll;
+}
+
+.WorkflowSettingsAreaClose {
+  display: none;
+}
+
+.WorkflowSettingsAreaCloseIcon {
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  &:hover{
+    transform: scale(1.1);
+  }
 }

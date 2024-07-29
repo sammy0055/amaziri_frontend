@@ -8,8 +8,8 @@ import { useOpenAndClosePopUp } from "@/app/state-management/utility-state";
 import { PopUp } from "../../popup";
 import Switcher from "@/app/component/atom/switch";
 import { MdOutlineSchedule, MdOutlineSaveAs } from "react-icons/md";
-import { IconLabel } from "@/app/component/atom/typography";
 import { Heading } from "@/app/component/atom/headings";
+import { ActionListing } from "../action_listing";
 export const WorkflowCanvasHeading = () => {
   return (
     <div className={styles["WorkflowCanvasHeading"]}>
@@ -20,6 +20,7 @@ export const WorkflowCanvasHeading = () => {
 };
 
 export const WorkflowCanvasFooterControls = () => {
+  const [open, setOpen] = useOpenAndClosePopUp();
   return (
     <div className={styles["WorkflowCanvasFooterControls"]}>
       <div className={styles["ControlsContainer"]}>
@@ -40,7 +41,7 @@ export const WorkflowCanvasFooterControls = () => {
           <div className={styles["MiniBox"]}>
             <MdOutlineSaveAs size={20} />
           </div>
-          <div className={styles["MiniBox"]}>
+          <div className={styles["MiniBox"]} onClick={() => setOpen(!open)}>
             <FaPlus size={20} />
           </div>
         </div>
@@ -68,7 +69,7 @@ export const AddnodeInitial = () => {
         </Panel>
       )}
       <PopUp>
-        <span>welcome to the club</span>
+        <ActionListing />
       </PopUp>
     </>
   );

@@ -11,8 +11,6 @@ import {
   Node,
   Edge,
   Controls,
-  Panel,
-  useReactFlow,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { useCallback, useMemo } from "react";
@@ -20,6 +18,9 @@ import CustomEdge from "../../../element/workflow/customEdge";
 import { CustomNode } from "@/app/component/element/workflow/custom_node";
 import { SelectNode } from "@/app/component/element/workflow/nodeSelector";
 import { AddnodeInitial } from "@/app/component/element/workflow/canvas";
+import { useWorkflowCanvasSettingsPanelState } from "@/app/state-management/utility-state";
+
+import { IoIosClose } from "react-icons/io";
 
 const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
@@ -64,5 +65,28 @@ export const WorkflowCanvas = () => {
         </ReactFlow>
       </div>
     </ReactFlowProvider>
+  );
+};
+
+export const WorkflowSettingsArea = () => {
+  const [open, setOpen] = useWorkflowCanvasSettingsPanelState();
+  return (
+    <div
+      className={`${styles["WorkflowSettingsArea"]} ${
+        !open && styles["WorkflowSettingsAreaClose"]
+      }`}
+    >
+      <IoIosClose
+        onClick={() => setOpen(!open)}
+        className={styles["WorkflowSettingsAreaCloseIcon"]}
+      />
+      <div style={{ height: "13rem" }}>welcom to settings</div>
+      <div style={{ height: "13rem" }}>welcom to settings</div>
+
+      <div style={{ height: "13rem" }}>welcom to settings</div>
+      <div style={{ height: "13rem" }}>welcom to settings</div>
+      <div style={{ height: "13rem" }}>welcom to settings</div>
+      <div style={{ height: "13rem" }}>welcom to settings</div>
+    </div>
   );
 };

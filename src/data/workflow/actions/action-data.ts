@@ -1,9 +1,9 @@
-import { Action, ActionNames } from "@/types/workflow";
+import { Action, ActionNames, MyNode } from "@/types/workflow";
 import { v4 } from "uuid";
 
 const Content_Suggestion: Action<ActionNames.Content_Suggestion> = {
   actionName: ActionNames.Content_Suggestion,
-  description: "testing description",
+  description: "Use AI to recommend content topics based on industry trends",
   actionType: "ASSISTANTS",
   isInputRequired: true,
   category: "Content Creation and Curation",
@@ -17,7 +17,7 @@ const Content_Suggestion: Action<ActionNames.Content_Suggestion> = {
 
 const Content_Generation: Action<ActionNames.Content_Generation> = {
   actionName: ActionNames.Content_Generation,
-  description: "testing description",
+  description: "Use AI to create engaging posts",
   actionType: "ASSISTANTS",
   isInputRequired: true,
   category: "Content Creation and Curation",
@@ -31,7 +31,7 @@ const Content_Generation: Action<ActionNames.Content_Generation> = {
 
 const Content_Approval: Action<ActionNames.Content_Approval> = {
   actionName: ActionNames.Content_Approval,
-  description: "testing description",
+  description: "Route created content for review and approval",
   actionType: "TOOLING",
   isInputRequired: true,
   category: "Content Creation and Curation",
@@ -43,7 +43,14 @@ const Content_Approval: Action<ActionNames.Content_Approval> = {
   },
 };
 
-const actions = {
+interface ActionType {
+  categories: {
+    [key: string]: MyNode[];
+  };
+  allActions: () => MyNode[];
+}
+
+export const actions: ActionType = {
   categories: {
     contentCreation: [
       {

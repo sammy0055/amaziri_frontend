@@ -30,3 +30,11 @@ export const sidebartoggle = atom({
 });
 
 export const useSidbarState = () => useRecoilState(sidebartoggle);
+
+const workflowCanvasSettingsPanel = atom({
+  key: v4(),
+  default: false,
+});
+
+export const useWorkflowCanvasSettingsPanelState = () =>
+  useRecoilState(workflowCanvasSettingsPanel);
