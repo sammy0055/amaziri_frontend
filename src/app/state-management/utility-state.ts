@@ -1,6 +1,8 @@
 import { v4 } from "uuid";
 import { atom, useRecoilState } from "recoil";
 import { AlertColors } from "@/types/common";
+import React, { ReactNode } from "react";
+import { Workflow } from "@/types/workflow";
 
 const ErrorState = atom<{
   isAlertActive: boolean;
@@ -31,10 +33,32 @@ export const sidebartoggle = atom({
 
 export const useSidbarState = () => useRecoilState(sidebartoggle);
 
-const workflowCanvasSettingsPanel = atom({
+interface workflowSettingsComponentProps {
+  isOpen: boolean;
+  component: ReactNode;
+}
+
+const workflowCanvasSettingsPanel = atom<workflowSettingsComponentProps>({
   key: v4(),
-  default: false,
+  default: {
+    isOpen: false,
+    component: "",
+  },
 });
 
 export const useWorkflowCanvasSettingsPanelState = () =>
   useRecoilState(workflowCanvasSettingsPanel);
+
+const workflowEditData = atom<Workflow>({
+  key: v4(),
+  default: {
+    workflowName: "",
+    steps: {
+      nodes: [],
+      edges: [],
+    },
+  },
+});
+
+export const useWorkflowEditState = () => useRecoilState(workflowEditData);
+

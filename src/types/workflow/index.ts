@@ -114,6 +114,18 @@ export interface MyEdges {
   type: string;
 }
 
+// Workflow model
+export interface Workflow {
+  organization?: any;
+  workflowName: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  steps: {
+    nodes: MyNode[];
+    edges: MyEdges[];
+  };
+}
+
 export interface ReactFlowTypes {
   nodes: MyNode[];
   edges: MyEdges[];

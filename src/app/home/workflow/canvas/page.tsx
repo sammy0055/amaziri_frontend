@@ -7,15 +7,18 @@ import {
   WorkflowCanvasFooterControls,
   WorkflowCanvasHeading,
 } from "@/app/component/element/workflow/canvas";
+import { ReactFlowProvider } from "@xyflow/react";
 export default function WorkflowCanvasView() {
   return (
     <main className={styles["Workflow"]}>
-      <div className={styles["WorkflowEditArea"]}>
-        <WorkflowCanvasHeading />
-        <WorkflowCanvas />
-        <WorkflowCanvasFooterControls />
-      </div>
-      <WorkflowSettingsArea />
+      <ReactFlowProvider>
+        <div className={styles["WorkflowEditArea"]}>
+          <WorkflowCanvasHeading />
+          <WorkflowCanvas />
+          <WorkflowCanvasFooterControls />
+        </div>
+        <WorkflowSettingsArea />
+      </ReactFlowProvider>
     </main>
   );
 }

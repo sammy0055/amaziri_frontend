@@ -18,9 +18,9 @@ import CustomEdge from "../../../element/workflow/customEdge";
 import { CustomNode } from "@/app/component/element/workflow/custom_node";
 import { SelectNode } from "@/app/component/element/workflow/nodeSelector";
 import { AddnodeInitial } from "@/app/component/element/workflow/canvas";
-import { useWorkflowCanvasSettingsPanelState } from "@/app/state-management/utility-state";
 
 import { IoIosClose } from "react-icons/io";
+import { useWorkflow } from "@/app/hooks/workflow";
 
 const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
@@ -47,7 +47,7 @@ export const WorkflowCanvas = () => {
   };
 
   return (
-    <ReactFlowProvider>
+    <>
       {/* <SelectNode /> */}
       <div className={styles["Container"]}>
         <ReactFlow
@@ -64,29 +64,23 @@ export const WorkflowCanvas = () => {
           <AddnodeInitial />
         </ReactFlow>
       </div>
-    </ReactFlowProvider>
+    </>
   );
 };
 
 export const WorkflowSettingsArea = () => {
-  const [open, setOpen] = useWorkflowCanvasSettingsPanelState();
+  const { settingsData, closeSettingsPanel } = useWorkflow();
   return (
     <div
       className={`${styles["WorkflowSettingsArea"]} ${
-        !open && styles["WorkflowSettingsAreaClose"]
+        !settingsData.isOpen && styles["WorkflowSettingsAreaClose"]
       }`}
     >
       <IoIosClose
-        onClick={() => setOpen(!open)}
+        onClick={closeSettingsPanel}
         className={styles["WorkflowSettingsAreaCloseIcon"]}
       />
-      <div style={{ height: "13rem" }}>welcom to settings</div>
-      <div style={{ height: "13rem" }}>welcom to settings</div>
-
-      <div style={{ height: "13rem" }}>welcom to settings</div>
-      <div style={{ height: "13rem" }}>welcom to settings</div>
-      <div style={{ height: "13rem" }}>welcom to settings</div>
-      <div style={{ height: "13rem" }}>welcom to settings</div>
+      {settingsData.component}
     </div>
   );
 };

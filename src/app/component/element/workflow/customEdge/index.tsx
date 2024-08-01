@@ -1,14 +1,17 @@
 import {
+  BaseEdge,
   BezierEdge,
   EdgeLabelRenderer,
   getBezierPath,
+  getStraightPath,
   useReactFlow,
 } from "@xyflow/react";
-
+import styles from "./index.module.scss";
+import { TbTool } from "react-icons/tb";
 export default function CustomEdge(props: any) {
   const { id, sourceX, sourceY, targetX, targetY } = props;
   const { setEdges } = useReactFlow();
-  const [edgePath, labelX, labelY] = getBezierPath({
+  const [edgePath, labelX, labelY] = getStraightPath({
     sourceX,
     sourceY,
     targetX,
@@ -17,7 +20,7 @@ export default function CustomEdge(props: any) {
 
   return (
     <>
-      <BezierEdge {...props} />
+      <BaseEdge id={id} path={edgePath} />
       <EdgeLabelRenderer>
         <button
           style={{
@@ -25,9 +28,10 @@ export default function CustomEdge(props: any) {
             transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
             pointerEvents: "all",
           }}
+          className={styles["EdgesBtn"]}
           onClick={() => setEdges((edges) => edges.filter((e) => e.id !== id))}
         >
-          <span>delete edgePath</span>
+          <TbTool size={10} />
         </button>
       </EdgeLabelRenderer>
     </>

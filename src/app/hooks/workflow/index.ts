@@ -1,17 +1,33 @@
 import { MyEdges, MyNode } from "@/types/workflow";
 import { useReactFlow } from "@xyflow/react";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { v4 } from "uuid";
 import { useErrorHandler } from "../common/error";
 import { useGqlApiCall } from "../gqlApiCall";
 import { addWorkflow } from "@/app/server_actions/workflow";
+import { useWorkflowCanvasSettingsPanelState } from "@/app/state-management/utility-state";
 
 export const useWorkflow = () => {
   const [isDisabled, setIsDisabled] = useState(false);
+  const { setNodes, getNodes, getEdges } = useReactFlow();
+  const [settingsData, setSettingsData] = useWorkflowCanvasSettingsPanelState();
   const { handleError } = useErrorHandler();
   const gqlApiCall = useGqlApiCall();
 
-  const { setNodes, getNodes, getEdges } = useReactFlow();
+  const openSettingsPanel = () =>
+    setSettingsData((prevState) => ({ ...prevState, isOpen: true }));
+
+  const closeSettingsPanel = () =>
+    setSettingsData((prevState) => ({ ...prevState, isOpen: false }));
+
+  const WorflowSettingsComponent = (component: ReactNode) => {
+    setSettingsData((prevNode) => ({
+      ...prevNode,
+      isOpen: true,
+      component: component,
+    }));
+  };
+
   const HandleSelectNode = (node: MyNode) => {
     if (node) {
       node.id = v4();
@@ -58,5 +74,12 @@ export const useWorkflow = () => {
     }
   };
 
-  return { sendworkflowData, HandleSelectNode };
+  return {
+    settingsData,
+    openSettingsPanel,
+    closeSettingsPanel,
+    sendworkflowData,
+    HandleSelectNode,
+    WorflowSettingsComponent
+  };
 };

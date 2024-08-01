@@ -37,6 +37,7 @@ export const ActionListing = () => {
     else setApps(categories[category]);
     setActiveCategory(category);
   };
+
   return (
     <div className={styles["Container"]}>
       <div className={styles["Controls"]}>
@@ -55,7 +56,7 @@ export const ActionListing = () => {
         </div>
         <div className={styles["ListingAreaText"]}>
           {apps?.map((app) => (
-            <ActionContainer node={app} />
+            <ActionContainer key={app.id} node={app} />
           ))}
         </div>
       </div>
