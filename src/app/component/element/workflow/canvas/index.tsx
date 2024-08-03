@@ -10,6 +10,7 @@ import Switcher from "@/app/component/atom/switch";
 import { MdOutlineSchedule, MdOutlineSaveAs } from "react-icons/md";
 import { Heading } from "@/app/component/atom/headings";
 import { ActionListing } from "../action_listing";
+import { useReactflowCustom } from "@/app/state-management/reactflow";
 export const WorkflowCanvasHeading = () => {
   return (
     <div className={styles["WorkflowCanvasHeading"]}>
@@ -51,9 +52,9 @@ export const WorkflowCanvasFooterControls = () => {
 };
 
 export const AddnodeInitial = () => {
-  const { getNodes } = useReactFlow();
+  const { nodes } = useReactflowCustom();
   const [open, setOpen] = useOpenAndClosePopUp();
-  const isNodeEmpty = getNodes().length === 0;
+  const isNodeEmpty = nodes.length === 0;
   return (
     <>
       {isNodeEmpty && (

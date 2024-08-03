@@ -8,9 +8,10 @@ import {
 } from "@xyflow/react";
 import styles from "./index.module.scss";
 import { TbTool } from "react-icons/tb";
+import { useReactflowCustom } from "@/app/state-management/reactflow";
 export default function CustomEdge(props: any) {
   const { id, sourceX, sourceY, targetX, targetY } = props;
-  const { setEdges } = useReactFlow();
+  const { setEdges } = useReactflowCustom();
   const [edgePath, labelX, labelY] = getStraightPath({
     sourceX,
     sourceY,

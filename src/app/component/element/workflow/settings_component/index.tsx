@@ -9,8 +9,7 @@ import {
   ActionInput,
   AddApprovals,
 } from "@/app/component/molecules/workflowSettings/ActionInput";
-import { Node, useReactFlow } from "@xyflow/react";
-import { useState } from "react";
+import { useReactflowCustom } from "@/app/state-management/reactflow";
 interface ContentSuggestionProps extends MyNode {
   data: Action<ActionNames.Content_Suggestion>;
 }
@@ -114,21 +113,38 @@ export const ContentApproval: React.FC<ContentApprovalProps> = ({
   id,
   data,
 }) => {
-  const [input, SetInput] = useState();
-  const { setNodes, getNodes, getEdges } = useReactFlow();
+  const { setNodes } = useReactflowCustom();
 
-  const handleApproval = (data: string) => {
-    setNodes((prevNodes: Node[]) => {
-      prevNodes.forEach((node: any) => {
-        if (node.id === id) {
-          node.data.actionParameters.approvers.push(data);
-        }
+  const handleApproval = (approval: string, action: "add" | "remove") => {
+    if (action === "add") {
+      const newAproval = [...data.actionParameters.approvers];
+      newAproval.push(approval);
+      setNodes((prevNode) => {
+        const newNodes = JSON.parse(JSON.stringify(prevNode));
+        newNodes.forEach((node: any) => {
+          if (node.id === id) {
+            node.data.actionParameters.approvers = newAproval;
+          }
+        });
+
+        return newNodes;
       });
-      console.log("===data===========");
-      console.log(prevNodes);
-      console.log("====================================");
-      return prevNodes;
-    });
+    }
+    if (action === "remove") {
+      const newAproval = [...data.actionParameters.approvers].filter(
+        (item: any) => item !== approval
+      );
+      setNodes((prevNode) => {
+        const newNodes = JSON.parse(JSON.stringify(prevNode));
+        newNodes.forEach((node: any) => {
+          if (node.id === id) {
+            node.data.actionParameters.approvers = newAproval;
+          }
+        });
+
+        return newNodes;
+      });
+    }
   };
 
   return (

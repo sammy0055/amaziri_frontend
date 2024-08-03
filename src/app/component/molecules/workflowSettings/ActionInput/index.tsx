@@ -2,9 +2,10 @@ import { Heading, LabelParagraph } from "@/app/component/atom/headings";
 import styles from "./index.module.scss";
 import { Input } from "@/app/component/atom/input";
 import { InputProps } from "@/types/forms/input";
-import { useReactFlow } from "@xyflow/react";
 import { useState } from "react";
 import { ContentApprovalParams } from "@/types/workflow";
+import { IconLabel } from "@/app/component/atom/typography";
+import { BiPlus } from "react-icons/bi";
 
 interface ActionInputProps extends InputProps {
   title: string;
@@ -33,7 +34,7 @@ export const ActionInput: React.FC<ActionInputProps> = ({
 interface AddApprovalsProps extends Pick<ContentApprovalParams, "approvers"> {
   title: string;
   description?: string;
-  handleChange: (data: string) => void;
+  handleChange: (data: string, action: "add" | "remove") => void;
 }
 
 export const AddApprovals: React.FC<AddApprovalsProps> = ({
@@ -43,19 +44,23 @@ export const AddApprovals: React.FC<AddApprovalsProps> = ({
   handleChange,
 }) => {
   const [input, setInput] = useState("");
-console.log('====================================');
-console.log(approvers);
-console.log('====================================');
-  const handleInput = () => {
-    handleChange(input);
+  const handleInput = (action: "add" | "remove", data: string) => {
+    handleChange(data, action);
     setInput("");
   };
+
   return (
     <div>
       <Heading customStyles={styles["HeadingLabel"]}>{title}</Heading>
       <LabelParagraph>{description}</LabelParagraph>
-      {approvers.map((item) => (
-        <div>{item}</div>
+      {approvers.map((item, index) => (
+        <div className={styles["InputArrayItem"]} key={index}>
+          <IconLabel text={item} />{" "}
+          <BiPlus
+            className={styles["InputArrayItemIcon"]}
+            onClick={() => handleInput("remove", item)}
+          />
+        </div>
       ))}
       <div>
         <Input
@@ -65,7 +70,7 @@ console.log('====================================');
           handleChange={(e) => setInput(e.target.value)}
         />
       </div>
-      <button onClick={handleInput}>add</button>
+      <button onClick={() => handleInput("add", input)}>add</button>
     </div>
   );
 };

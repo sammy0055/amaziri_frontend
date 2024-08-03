@@ -1,4 +1,4 @@
-import { Position, useReactFlow } from "@xyflow/react";
+import { Position } from "@xyflow/react";
 import styles from "./index.module.scss";
 import { CustomHandle } from "../customHandle";
 import { Action, ActionNames, ActionType, MyNode } from "@/types/workflow";
@@ -13,6 +13,8 @@ import {
   ContentGeneration,
   ContentSuggestion,
 } from "../settings_component";
+import { useReactflowCustom } from "@/app/state-management/reactflow";
+import { useEffect } from "react";
 
 const IconArray: {
   [key: string]: {
@@ -39,8 +41,8 @@ interface Custom extends MyNode {
 }
 export const CustomNode: React.FC<Custom> = (node) => {
   const { data, id } = node;
-  const { setNodes, getNodes } = useReactFlow();
-  const { WorflowSettingsComponent } = useWorkflow();
+  const { setNodes, nodes } = useReactflowCustom();
+  const { WorflowSettingsComponent, settingsData } = useWorkflow();
   const Icon = IconArray[data.actionType].Icon;
   const color = IconArray[data.actionType].color;
 
@@ -55,7 +57,6 @@ export const CustomNode: React.FC<Custom> = (node) => {
   const isTrigger = data.trigger === true;
 
   const isLastNode = () => {
-    const nodes = getNodes();
     const lastNode = nodes[nodes.length - 1];
     return lastNode.id === id;
   };
@@ -65,6 +66,10 @@ export const CustomNode: React.FC<Custom> = (node) => {
     if (!Component) return WorflowSettingsComponent(<div></div>);
     WorflowSettingsComponent(<Component {...node} />);
   };
+
+  useEffect(() => {
+    handleSettingsComponent();
+  }, [node]);
   return (
     <>
       <div

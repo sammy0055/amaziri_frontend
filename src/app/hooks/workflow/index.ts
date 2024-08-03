@@ -6,10 +6,11 @@ import { useErrorHandler } from "../common/error";
 import { useGqlApiCall } from "../gqlApiCall";
 import { addWorkflow } from "@/app/server_actions/workflow";
 import { useWorkflowCanvasSettingsPanelState } from "@/app/state-management/utility-state";
+import { useReactflowCustom } from "@/app/state-management/reactflow";
 
 export const useWorkflow = () => {
   const [isDisabled, setIsDisabled] = useState(false);
-  const { setNodes, getNodes, getEdges } = useReactFlow();
+  const { setNodes, nodes, edges } = useReactflowCustom();
   const [settingsData, setSettingsData] = useWorkflowCanvasSettingsPanelState();
   const { handleError } = useErrorHandler();
   const gqlApiCall = useGqlApiCall();
@@ -40,7 +41,7 @@ export const useWorkflow = () => {
   };
 
   const sendworkflowData = async () => {
-    const nodes = getNodes().map(({ id, position, measured, type, data }) => ({
+    const _nodes = nodes.map(({ id, position, measured, type, data }) => ({
       id,
       position,
       measured,
@@ -48,7 +49,7 @@ export const useWorkflow = () => {
       data,
     }));
 
-    const edges = getEdges().map(({ id, source, target, type }) => ({
+    const _edges = edges.map(({ id, source, target, type }) => ({
       id,
       source,
       target,
@@ -57,7 +58,7 @@ export const useWorkflow = () => {
 
     const workflowData = {
       workflowName: "test workflow",
-      steps: { nodes, edges },
+      steps: { nodes: _nodes, edges: _edges },
     };
 
     try {
@@ -80,6 +81,6 @@ export const useWorkflow = () => {
     closeSettingsPanel,
     sendworkflowData,
     HandleSelectNode,
-    WorflowSettingsComponent
+    WorflowSettingsComponent,
   };
 };
