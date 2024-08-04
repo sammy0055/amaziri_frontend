@@ -14,7 +14,8 @@ import {
   ContentSuggestion,
 } from "../settings_component";
 import { useReactflowCustom } from "@/app/state-management/reactflow";
-import { useEffect } from "react";
+import { Badge } from "@mui/joy";
+import { useActiveNodesValidationState } from "@/app/state-management/utility-state";
 
 const IconArray: {
   [key: string]: {
@@ -42,7 +43,8 @@ interface Custom extends MyNode {
 export const CustomNode: React.FC<Custom> = (node) => {
   const { data, id } = node;
   const { setNodes, nodes } = useReactflowCustom();
-  const { WorflowSettingsComponent, settingsData } = useWorkflow();
+  const [validNodes] = useActiveNodesValidationState();
+  const { WorflowSettingsComponent, inputRequired } = useWorkflow();
   const Icon = IconArray[data.actionType].Icon;
   const color = IconArray[data.actionType].color;
 
@@ -62,23 +64,33 @@ export const CustomNode: React.FC<Custom> = (node) => {
   };
 
   const handleSettingsComponent = () => {
+    const isInputRequired = inputRequired(id);
     const Component = SettingsComponent[data.actionName];
-    if (!Component) return WorflowSettingsComponent(<div></div>);
-    WorflowSettingsComponent(<Component {...node} />);
+    if (!Component) WorflowSettingsComponent(<div></div>);
+    else {
+      const updated = {
+        ...node,
+        data: { ...node.data, isInputRequired: isInputRequired ? true : false },
+      };
+      WorflowSettingsComponent(<Component {...updated} />);
+    }
   };
 
-  useEffect(() => {
-    handleSettingsComponent();
-  }, [node]);
   return (
-    <>
+    <div className={styles["CustomNodeContainer"]}>
+      {/* <button onClick={HandleDeleteNode} className="nodrag">
+        delete
+      </button> */}
       <div
         className={styles["CustomNode"]}
         style={{ backgroundColor: color }}
         onClick={handleSettingsComponent}
       >
+        <Badge
+          className={styles["CustomNodeBade"]}
+          color={validNodes.includes(id) ? "success" : "danger"}
+        />
         <Icon className={`${styles["CustomNodeIcon"]}`} />
-        {/* <button onClick={HandleDeleteNode}>delete</button> */}
         <CustomHandle color={color} type="target" position={Position.Left} />
         <CustomHandle color={color} type="source" position={Position.Right} />
         {isTrigger && (
@@ -92,6 +104,6 @@ export const CustomNode: React.FC<Custom> = (node) => {
           {data.actionName}
         </Heading>
       </div>
-    </>
+    </div>
   );
 };

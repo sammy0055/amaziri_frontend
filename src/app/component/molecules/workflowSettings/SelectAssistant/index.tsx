@@ -1,11 +1,12 @@
 import { Heading, LabelParagraph } from "@/app/component/atom/headings";
 import styles from "./index.module.scss";
 import { Option, Select } from "@mui/joy";
-import { InputProps } from "@/types/forms/input";
+import { useEffect, useState } from "react";
 
-interface SelectAssistantProp extends InputProps {
+interface SelectAssistantProp {
   title: string;
   description: string;
+  value:string
   handleChange: (e: any) => void;
 }
 export const SelectAssistant: React.FC<SelectAssistantProp> = ({
@@ -14,6 +15,15 @@ export const SelectAssistant: React.FC<SelectAssistantProp> = ({
   value,
   handleChange,
 }) => {
+  const [assistantId, setAssitantId] = useState("");
+  const handleSelectChange = (e: any, newValue: any) => {
+    setAssitantId(newValue);
+    handleChange(newValue);
+  };
+
+  useEffect(() => {
+    setAssitantId(value);
+  }, [value]);
   return (
     <div>
       <Heading customStyles={styles["HeadingLabel"]}>{title}</Heading>
@@ -21,10 +31,11 @@ export const SelectAssistant: React.FC<SelectAssistantProp> = ({
       <Select
         placeholder={"choose your assistant"}
         className={styles["SelectWrapper"]}
-        defaultValue={"assistant"}
-        onChange={handleChange}
+        value={assistantId}
+        onChange={handleSelectChange}
       >
-        <Option value={value}>hello</Option>
+        <Option value={"id-one"}>hello</Option>
+        <Option value={"id-tow"}>id two</Option>
       </Select>
     </div>
   );

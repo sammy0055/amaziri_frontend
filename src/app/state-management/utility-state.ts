@@ -49,16 +49,9 @@ const workflowCanvasSettingsPanel = atom<workflowSettingsComponentProps>({
 export const useWorkflowCanvasSettingsPanelState = () =>
   useRecoilState(workflowCanvasSettingsPanel);
 
-const workflowEditData = atom<Workflow>({
+ const activeNodesValidation = atom<string[]>({
   key: v4(),
-  default: {
-    workflowName: "",
-    steps: {
-      nodes: [],
-      edges: [],
-    },
-  },
+  default: [],
 });
 
-export const useWorkflowEditState = () => useRecoilState(workflowEditData);
-
+export const useActiveNodesValidationState = () => useRecoilState(activeNodesValidation)

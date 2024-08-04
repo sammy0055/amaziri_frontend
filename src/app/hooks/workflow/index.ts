@@ -1,5 +1,5 @@
 import { MyEdges, MyNode } from "@/types/workflow";
-import { useReactFlow } from "@xyflow/react";
+import { Node, useReactFlow } from "@xyflow/react";
 import { ReactNode, useState } from "react";
 import { v4 } from "uuid";
 import { useErrorHandler } from "../common/error";
@@ -27,6 +27,20 @@ export const useWorkflow = () => {
       isOpen: true,
       component: component,
     }));
+  };
+
+  const inputRequired = (nodeId: string) => {
+    const isInput = edges.find((edge) => edge.target === nodeId);
+    if (!isInput) {
+      setNodes((prevNodes) => {
+        const newNodes: Node[] = JSON.parse(JSON.stringify(prevNodes));
+        newNodes.forEach((node: Node) => {
+          if (node.id === nodeId) node.data.isInputRequired = false;
+        });
+        return newNodes;
+      });
+    }
+    return isInput;
   };
 
   const HandleSelectNode = (node: MyNode) => {
@@ -82,5 +96,6 @@ export const useWorkflow = () => {
     sendworkflowData,
     HandleSelectNode,
     WorflowSettingsComponent,
+    inputRequired,
   };
 };
