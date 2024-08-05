@@ -64,13 +64,13 @@ export const CustomNode: React.FC<Custom> = (node) => {
   };
 
   const handleSettingsComponent = () => {
-    const isInputRequired = inputRequired(id);
+    const isReceivingInput = inputRequired(id);
     const Component = SettingsComponent[data.actionName];
     if (!Component) WorflowSettingsComponent(<div></div>);
     else {
       const updated = {
         ...node,
-        data: { ...node.data, isInputRequired: isInputRequired ? true : false },
+        data: { ...node.data, isInputRequired: isReceivingInput ? false : true },
       };
       WorflowSettingsComponent(<Component {...updated} />);
     }

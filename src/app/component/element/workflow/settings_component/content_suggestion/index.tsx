@@ -93,7 +93,7 @@ export const ContentSuggestion: React.FC<ContentSuggestionProps> = ({
       <Heading customStyles={styles["Heading"]}>{data.actionName}</Heading>
       <LabelParagraph>{data.description}</LabelParagraph>
       <div>
-        {!data.isInputRequired && (
+        {data.isInputRequired && (
           <InputArray
             title="input"
             description="Add industry trending topics"

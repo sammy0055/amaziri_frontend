@@ -22,13 +22,86 @@ export const useWorkflowValidation = () => {
     message: string;
   }
 
+  const isInputValid = (
+    data: Action<ActionNames.Content_Suggestion>
+  ): validationResponse => {
+    const { input } = data.actionParameters;
+    if (!data.isInputRequired) return { status: true, message: "" };
+    if (input.length === 0) {
+      return {
+        status: false,
+        message: "input is empty, please add an input",
+      };
+    }
+    return { status: true, message: "" };
+  };
+
+  const isAssistantAndPromptValid = (
+    data: Action<ActionNames.Content_Suggestion>
+  ): validationResponse => {
+    const { assistantId, prompt } = data.actionParameters;
+    if (assistantId && prompt) return { status: true, message: "" };
+    else
+      return {
+        status: false,
+        message: assistantId
+          ? "prompt most not be empty"
+          : "choose your assistant",
+      };
+  };
+
+  const isContentTypeValid = (
+    data: Action<ActionNames.Content_Generation>
+  ): validationResponse => {
+    if (data.actionParameters.contentType) return { status: true, message: "" };
+    return {
+      status: false,
+      message: "select the type of content you want to generate",
+    };
+  };
+
   const contentSuggestionValidation = (id: string) => {
-    const isInputValid = (
-      data: Action<ActionNames.Content_Suggestion>
+    const inProcessValidation = (nodes: MyNode[]) => {
+      const node = nodes.find(
+        (node) => node.id === id
+      ) as validationDataType<ActionNames.Content_Suggestion>;
+      if (!node) throw new Error("something went wrong");
+      const { data } = node;
+      const input = isInputValid(data);
+      const isValid = [input, isAssistantAndPromptValid(data)].every(
+        (item) => item.status === true
+      );
+
+      return isValid;
+    };
+
+    return { inProcessValidation };
+  };
+
+  const contentGenerationValidation = (id: string) => {
+    const inProcessValidation = (nodes: MyNode[]) => {
+      const node = nodes.find(
+        (node) => node.id === id
+      ) as validationDataType<any>;
+      if (!node) throw new Error("something went wrong");
+      const { data } = node;
+      const isValid = [
+        isInputValid(data),
+        isAssistantAndPromptValid(data),
+        isContentTypeValid(data),
+      ].every((item) => item.status === true);
+      return isValid;
+    };
+
+    return { inProcessValidation };
+  };
+
+  const contentApprovalValidation = (id: string) => {
+    const isApprovalsValid = (
+      data: Action<ActionNames.Content_Approval>
     ): validationResponse => {
-      const { input } = data.actionParameters;
-      if (!data.isInputRequired) return { status: true, message: "" };
-      else if (input.length === 0) {
+      const { approvers } = data.actionParameters;
+      if (approvers?.length === 0) {
         return {
           status: false,
           message: "input is empty, please add an input",
@@ -36,29 +109,23 @@ export const useWorkflowValidation = () => {
       } else return { status: true, message: "" };
     };
 
-    const isAssistantAndPromptValid = (
-      data: Action<ActionNames.Content_Suggestion>
+    const isNotificationChannelValid = (
+      data: Action<ActionNames.Content_Approval>
     ): validationResponse => {
-      const { assistantId, prompt } = data.actionParameters;
-      if (assistantId && prompt) return { status: true, message: "" };
-      else
-        return {
-          status: false,
-          message: assistantId
-            ? "prompt most not be empty"
-            : "choose your assistant",
-        };
+      if (data?.actionParameters?.notificationChannel)
+        return { status: true, message: "" };
+      return { status: false, message: "notification channel is required" };
     };
-
     const inProcessValidation = (nodes: MyNode[]) => {
       const node = nodes.find(
         (node) => node.id === id
-      ) as validationDataType<ActionNames.Content_Suggestion>;
+      ) as validationDataType<any>;
       if (!node) throw new Error("something went wrong");
       const { data } = node;
       const isValid = [
-        isInputValid(data),
-        isAssistantAndPromptValid(data),
+        isApprovalsValid(data),
+        isContentTypeValid(data),
+        isNotificationChannelValid(data),
       ].every((item) => item.status === true);
       return isValid;
     };
@@ -68,5 +135,7 @@ export const useWorkflowValidation = () => {
 
   return {
     contentSuggestionValidation,
+    contentGenerationValidation,
+    contentApprovalValidation,
   };
 };

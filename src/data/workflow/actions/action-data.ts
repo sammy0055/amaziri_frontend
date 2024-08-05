@@ -33,7 +33,7 @@ const Content_Approval: Action<ActionNames.Content_Approval> = {
   actionName: ActionNames.Content_Approval,
   description: "Route created content for review and approval",
   actionType: "TOOLING",
-  isInputRequired: true,
+  isInputRequired: false,
   category: "Content Creation and Curation",
   actionParameters: {
     approvers: [],

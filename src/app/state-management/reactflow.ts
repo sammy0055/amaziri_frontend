@@ -13,11 +13,13 @@ import {
 import { useCallback } from "react";
 
 const reactflow = atom<{
+  workflowName: string;
   nodes: Node[];
   edges: Edge[];
 }>({
   key: v4(),
   default: {
+    workflowName: "",
     nodes: [],
     edges: [],
   },
@@ -25,7 +27,7 @@ const reactflow = atom<{
 
 export const useReactflowState = () => useRecoilState(reactflow);
 export const useReactflowCustom = () => {
-  const [{ nodes, edges }, setReactflowState] = useReactflowState();
+  const [{ nodes, edges, workflowName }, setReactflowState] = useReactflowState();
   const onNodesChange = (changes: NodeChange<Node>[]) => {
     const newNodes = applyNodeChanges(changes, nodes);
     setReactflowState((prevState) => ({ ...prevState, nodes: newNodes }));
@@ -52,7 +54,15 @@ export const useReactflowCustom = () => {
     },
     [setEdges]
   );
+
+  const onWorkflowNameChange = (value: string) => {
+    setReactflowState((prevState) => ({
+      ...prevState,
+      workflowName: value || "",
+    }));
+  };
   return {
+    onWorkflowNameChange,
     onNodesChange,
     onEdgesChange,
     onConnect,
@@ -60,5 +70,6 @@ export const useReactflowCustom = () => {
     setEdges,
     nodes,
     edges,
+    workflowName
   };
 };

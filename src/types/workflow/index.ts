@@ -59,8 +59,10 @@ export interface ContentSuggestionParams {
   internetSearch: boolean;
 }
 
-type contentType = "text" | "image" | "video";
-type NotificationChannels = "whatsapp" | "email";
+export type contentType = "text" | "image" | "video";
+export const contentTypeVaues = ["text", "image", "video"];
+export type NotificationChannels = "whatsapp" | "email";
+export const NotificationChannelsValues = ["email"];
 export interface ContentGenerationParams {
   input: string[]; //Selected topics and ideas
   assistantId: string;

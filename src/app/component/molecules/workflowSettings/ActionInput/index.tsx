@@ -50,7 +50,8 @@ export const InputArray: React.FC<AddApprovalsProps> = ({
     if (action === "add") {
       handleChange(data, action);
       setValueLista((valueList) => {
-        return [...valueList, data];
+        if (data) return [...valueList, data];
+        return valueList;
       });
       setInput("");
     }

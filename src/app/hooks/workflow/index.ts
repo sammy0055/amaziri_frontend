@@ -1,17 +1,21 @@
 import { MyEdges, MyNode } from "@/types/workflow";
-import { Node, useReactFlow } from "@xyflow/react";
+import { Node } from "@xyflow/react";
 import { ReactNode, useState } from "react";
 import { v4 } from "uuid";
 import { useErrorHandler } from "../common/error";
 import { useGqlApiCall } from "../gqlApiCall";
 import { addWorkflow } from "@/app/server_actions/workflow";
-import { useWorkflowCanvasSettingsPanelState } from "@/app/state-management/utility-state";
+import {
+  useActiveNodesValidationState,
+  useWorkflowCanvasSettingsPanelState,
+} from "@/app/state-management/utility-state";
 import { useReactflowCustom } from "@/app/state-management/reactflow";
 
 export const useWorkflow = () => {
   const [isDisabled, setIsDisabled] = useState(false);
-  const { setNodes, nodes, edges } = useReactflowCustom();
+  const { setNodes, nodes, edges, workflowName } = useReactflowCustom();
   const [settingsData, setSettingsData] = useWorkflowCanvasSettingsPanelState();
+  const [validNodes] = useActiveNodesValidationState();
   const { handleError } = useErrorHandler();
   const gqlApiCall = useGqlApiCall();
 
@@ -30,17 +34,20 @@ export const useWorkflow = () => {
   };
 
   const inputRequired = (nodeId: string) => {
-    const isInput = edges.find((edge) => edge.target === nodeId);
-    if (!isInput) {
-      setNodes((prevNodes) => {
-        const newNodes: Node[] = JSON.parse(JSON.stringify(prevNodes));
-        newNodes.forEach((node: Node) => {
-          if (node.id === nodeId) node.data.isInputRequired = false;
-        });
-        return newNodes;
+    const isReceivingInput = edges.find((edge) => edge.target === nodeId);
+
+    setNodes((prevNodes) => {
+      const newNodes: Node[] = JSON.parse(JSON.stringify(prevNodes));
+      newNodes.forEach((node: Node) => {
+        if (node.id === nodeId) {
+          if (isReceivingInput) node.data.isInputRequired = false;
+          else node.data.isInputRequired = true;
+        }
       });
-    }
-    return isInput;
+      return newNodes;
+    });
+
+    return isReceivingInput;
   };
 
   const HandleSelectNode = (node: MyNode) => {
@@ -55,34 +62,46 @@ export const useWorkflow = () => {
   };
 
   const sendworkflowData = async () => {
-    const _nodes = nodes.map(({ id, position, measured, type, data }) => ({
-      id,
-      position,
-      measured,
-      type,
-      data,
-    }));
-
-    const _edges = edges.map(({ id, source, target, type }) => ({
-      id,
-      source,
-      target,
-      type,
-    })) as MyEdges[];
-
-    const workflowData = {
-      workflowName: "test workflow",
-      steps: { nodes: _nodes, edges: _edges },
-    };
-
     try {
-      const data = await gqlApiCall(async (token) => {
-        return await addWorkflow(workflowData, token);
-      });
+      const allValid = nodes.every((node) => validNodes.includes(node.id));
+      if (!allValid) throw new Error("one or more nodes is wrongly configured");
+      setIsDisabled(true);
+      const _nodes = nodes.map(({ id, position, measured, type, data }) => ({
+        id,
+        position,
+        measured,
+        type,
+        data,
+      }));
+
+      const _edges = edges.map(({ id, source, target, type }) => ({
+        id,
+        source,
+        target,
+        type,
+      })) as MyEdges[];
+
+      const workflowData = {
+        workflowName: workflowName,
+        steps: { nodes: _nodes, edges: _edges },
+      };
+
+      // const data = await gqlApiCall(async (token) => {
+      //   return await addWorkflow(workflowData, token);
+      // });
 
       console.log("====================================");
-      console.log({ nodes, edges, data });
+      console.log({ _nodes, _edges });
       console.log("====================================");
+    } catch (error: any) {
+      setIsDisabled(false);
+      handleError(error);
+    }
+  };
+
+  const stopRunningWorkflow = () => {
+    try {
+      setIsDisabled(false);
     } catch (error: any) {
       setIsDisabled(false);
       handleError(error);
@@ -91,9 +110,11 @@ export const useWorkflow = () => {
 
   return {
     settingsData,
+    isDisabled,
     openSettingsPanel,
     closeSettingsPanel,
     sendworkflowData,
+    stopRunningWorkflow,
     HandleSelectNode,
     WorflowSettingsComponent,
     inputRequired,
