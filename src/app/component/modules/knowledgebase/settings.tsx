@@ -28,7 +28,7 @@ export const KnowledgeBaseSettings = async () => {
     console.error(error);
     return (
       <div className={styles["BaseContainer"]}>
-        <Button>new</Button>
+        <Button>add folder</Button>
         <span>Error occured while loading component</span>
       </div>
     );

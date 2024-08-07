@@ -15,6 +15,7 @@ export const firebaseConfigClient = {
 const clientApp = initializeAppClient(firebaseConfigClient);
 
 export const firebaseAuthApp = getAuth(clientApp);
+// connectAuthEmulator(firebaseAuthApp, "http://127.0.0.1:9091");
 
 export const login = async (email: string, password: string) => {
   return await signInWithEmailAndPassword(firebaseAuthApp, email, password);

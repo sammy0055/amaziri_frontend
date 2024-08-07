@@ -20,7 +20,7 @@ export const Sidebar = () => {
 
   useEffect(() => {
     setOpenSidebar(window.innerWidth <= 810);
-  },[])
+  }, []);
   return (
     <section
       className={`${styles["Sidebar-Wrapper"]} ${
@@ -46,11 +46,13 @@ export const Sidebar = () => {
       </SidebarItem>
 
       <SidebarItem label="Automation">
-        <IconAndLabel
-          text="Workfows"
-          Icon={LuWorkflow}
-          customStyles={styles["IconAndLabelCustomStyle"]}
-        />
+        <Link href={"/home/workflow"}>
+          <IconAndLabel
+            text="Workfows"
+            Icon={LuWorkflow}
+            customStyles={styles["IconAndLabelCustomStyle"]}
+          />
+        </Link>
         <IconAndLabel
           text="Templates"
           Icon={LuLayoutTemplate}

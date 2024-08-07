@@ -160,7 +160,8 @@ export const useKnowledgeBase = () => {
       if (event.target.files && event.target.files.length > 0) {
         setIsDisabled(true);
         const file = event.target.files[0];
-
+        if (!selectedKnowledgeBase?._id)
+          throw new Error("select folder to add document");
         const data = {
           knowledgeVault: selectedKnowledgeBase._id,
           fileName: file.name,

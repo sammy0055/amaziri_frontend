@@ -22,6 +22,7 @@
     "debounce": "^2.1.0",
     "firebase": "^10.12.3",
     "graphql": "^16.9.0",
+    "graphql-ws": "^5.16.0",
     "next": "14.2.3",
     "next-themes": "^0.3.0",
     "oauth-1.0a": "^2.2.6",
