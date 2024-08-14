@@ -1,8 +1,13 @@
+import {
+  WorkflowMainArea,
+  WorkflowMainSetttingsArea,
+} from "@/app/component/modules/workflow/main_area";
 import styles from "./workflow.module.scss";
 export default function Workflow() {
   return (
     <main className={styles["Workflow"]}>
-      <h1>welcome to workflow</h1>
+      <WorkflowMainSetttingsArea />
+      <WorkflowMainArea />
     </main>
   );
 }

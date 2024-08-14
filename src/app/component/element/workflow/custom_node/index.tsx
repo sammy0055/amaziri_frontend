@@ -16,26 +16,7 @@ import {
 import { useReactflowCustom } from "@/app/state-management/reactflow";
 import { Badge } from "@mui/joy";
 import { useActiveNodesValidationState } from "@/app/state-management/utility-state";
-
-const IconArray: {
-  [key: string]: {
-    color: string;
-    Icon: IconType;
-  };
-} = {
-  [ActionType.ASSISTANTS]: {
-    color: "green",
-    Icon: RiRobot3Line,
-  },
-  [ActionType.AI]: {
-    color: "green",
-    Icon: RiRobot3Line,
-  },
-  [ActionType.TOOLING]: {
-    color: "red",
-    Icon: BsTools,
-  },
-};
+import { IconArray } from "@/data/action_data";
 
 interface Custom extends MyNode {
   data: Action<any>;
@@ -70,7 +51,10 @@ export const CustomNode: React.FC<Custom> = (node) => {
     else {
       const updated = {
         ...node,
-        data: { ...node.data, isInputRequired: isReceivingInput ? false : true },
+        data: {
+          ...node.data,
+          isInputRequired: isReceivingInput ? false : true,
+        },
       };
       WorflowSettingsComponent(<Component {...updated} />);
     }
@@ -78,9 +62,6 @@ export const CustomNode: React.FC<Custom> = (node) => {
 
   return (
     <div className={styles["CustomNodeContainer"]}>
-      {/* <button onClick={HandleDeleteNode} className="nodrag">
-        delete
-      </button> */}
       <div
         className={styles["CustomNode"]}
         style={{ backgroundColor: color }}
@@ -99,6 +80,7 @@ export const CustomNode: React.FC<Custom> = (node) => {
           </div>
         )}
       </div>
+
       <div>
         <Heading customStyles={styles["TitleHeading"]}>
           {data.actionName}

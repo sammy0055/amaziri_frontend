@@ -10,6 +10,7 @@ import {
   useWorkflowCanvasSettingsPanelState,
 } from "@/app/state-management/utility-state";
 import { useReactflowCustom } from "@/app/state-management/reactflow";
+import { WorkflowSettingsComponent } from "@/app/component/element/workflow/canvas";
 
 export const useWorkflow = () => {
   const [isDisabled, setIsDisabled] = useState(false);
@@ -74,6 +75,7 @@ export const useWorkflow = () => {
         data,
       }));
 
+      WorflowSettingsComponent(<WorkflowSettingsComponent nodes={_nodes} />);
       const _edges = edges.map(({ id, source, target, type }) => ({
         id,
         source,
@@ -91,7 +93,7 @@ export const useWorkflow = () => {
       // });
 
       console.log("====================================");
-      console.log({ _nodes, _edges });
+      console.log({ workflowData });
       console.log("====================================");
     } catch (error: any) {
       setIsDisabled(false);
@@ -111,6 +113,7 @@ export const useWorkflow = () => {
   return {
     settingsData,
     isDisabled,
+    nodes,
     openSettingsPanel,
     closeSettingsPanel,
     sendworkflowData,

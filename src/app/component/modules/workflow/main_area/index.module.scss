@@ -1,0 +1,71 @@
+.SettingsArea {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: sticky;
+  top: 4rem;
+  background-color: inherit;
+}
+
+.Section1 {
+  width: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.Section2 {
+  width: 30%;
+}
+
+.Haeding {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.AddBtn {
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AddBtn > span {
+  margin-left: 1rem;
+}
+
+// -------- mainarea --------------
+.Container {
+  width: 100%;
+  background-color: inherit;
+}
+
+.IconContainer {
+  margin-left: 1rem;
+  display: flex;
+}
+
+.IconList {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-left: -0.8rem;
+}
+
+.CustomHeading {
+  margin-left: 1rem;
+  font-size: 1rem;
+}
+
+.WorkflowItem {
+  margin-top: 1rem;
+  border: 1px solid lightgray;
+  border-radius: 1ch;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}

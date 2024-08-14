@@ -13,11 +13,11 @@ const getAssistants = async () => {
   return payload?.data?.getAssistants;
 };
 export default async function Assistant() {
-  const data = await getAssistants();
+  // const data = await getAssistants();
   return (
     <main className={styles["Container"]}>
       <SettingsArea />
-      <AssistantArea data={data?.data} />
+      <AssistantArea data={[]} />
       <CreateAssistant />
     </main>
   );
